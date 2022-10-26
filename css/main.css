@@ -1,0 +1,91 @@
+:root {
+    /* pallet */
+
+
+    /* BP */
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* TYPOGRAPHY */
+
+/* @font-face {
+    font-family: playfair;
+    src: url(/fonts/playfair/PlayfairDisplay-Regular.ttf)
+} */
+
+/* BASICS */
+
+html {
+    /* color: var(--clr1); */
+    /* font-family: playfair, sarif; */
+    /* line-height: 1.7142; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1em;
+    /* line-height: 1.3; */
+}
+
+body {
+    margin: 0;
+    /* font-size: 0.875rem; */
+}
+
+/* img {
+    width: 100%;
+} */
+
+a {
+    color: var(--clr-2)
+}
+
+
+/* HELPERS */
+
+/* flex helpers */
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* list helpers */
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+}
+
+/* LAYOUT */
+
+body> :not(.full) {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+
+
+
+#txt-editor{
+    width: 100%;
+}
+
+/* COMPONENTS */
+
+body{
+    background-color: aqua;
+}
+canvas{
+    background-color: white;
+}
