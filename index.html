@@ -25,9 +25,12 @@
     <section class="gallery">
 
         <div class="search-bar flex">
-            <input type="text" name="" id="searchByTxt">
-            <div class="search-words">BLA BLA BLA BLA</div>
-            <button class="more-btn">More</button>
+            <div class="search-by-txt pill">
+                <input type="text" name="" id="searchTxtInput" placeholder="Search">
+                <span>🔎︎</span>
+            </div>
+            <div class="search-words pill">BLA BLA BLA BLA</div>
+            <button class="more-btn pill">More</button>
         </div>
 
         <div class="img-container">
@@ -37,13 +40,13 @@
     </section>
 
     <section class="editor flex">
-        <div class="canvas-container">
+        <div class="canvas-container rounded">
             <canvas id="my-canvas"></canvas>
         </div>
 
-        <div class="edit-menu">
+        <div class="edit-menu rounded">
             <div class="basic-features">
-                <input type="text" name="" id="txt-editor" oninput="onTextEdit(this.value)">
+                <input type="text" class="pill" placeholder="your text" id="txt-editor" oninput="onTextEdit(this.value)">
                 <button class="up">up</button>
                 <button class="down">down</button>
                 <button class="switch" onclick="onSwitchLine()">switch</button>
@@ -51,7 +54,7 @@
                 <button class="delete">delete</button>
             </div>
 
-            <div class="style-features">
+            <div class="style-features rounded">
                 <button class="bigger" onclick="onSetFontSize(1)">bigger</button>
                 <button class="smaller" onclick="onSetFontSize(-1)">smaller</button>
                 <button class="align-start">align-start</button>
@@ -64,7 +67,7 @@
                 <input type="color" name="" id="fill" value="#ffffff" oninput="onSetColor(this.value, this.id)">
             </div>
 
-            <div class="stikers"></div>
+            <div class="stikers pill"></div>
 
             <div class="editor-btns">
                 <button class="share">share</button>

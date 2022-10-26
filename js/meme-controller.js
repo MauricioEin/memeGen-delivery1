@@ -10,6 +10,8 @@ function onInit() {
     addListeners()
     resizeCanvas()
     setTimeout(renderMeme, 1000)
+    window.addEventListener('resize', () => { resizeCanvas(), renderMeme() })
+
 
 }
 
@@ -19,19 +21,21 @@ function addListeners() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
-    gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetHeight
+    gElCanvas.width = gElCanvas.height = elContainer.offsetWidth
+    // gElCanvas.height = elContainer.offsetHeight
 }
 
 
 
 function renderMeme() {
+
     const { selectedImgId: id, lines } = getMeme()
     const img = document.querySelector(`[data-id="${id}"]`)
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
     lines.forEach((line, idx) => {
         drawText(line.txt, line.size, line.stroke, line.fill, idx)
     })
+
 
 }
 
@@ -69,4 +73,11 @@ function onSwitchLine() {
 function onAddLine() {
     addLine()
     renderMeme()
+    updateTxtInput()
+}
+
+function updateTxtInput() {
+    const meme = getMeme()
+    const txt = meme.lines[meme.selectedLineIdx].txt
+    document.querySelector('#txt-editor').value = txt
 }

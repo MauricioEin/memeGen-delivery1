@@ -60,7 +60,13 @@ function setImg(id) {
     gMeme = {
         selectedImgId: id,
         selectedLineIdx: 0,
-        lines: [{}]
+        lines: [{
+            txt: '',
+            size: DEFAULT_FONT_SIZE,
+            align: DEFAULT_ALIGN,
+            fill: DEFAULT_FILL,
+            stroke: DEFAULT_STROKE
+        }]
     }
 }
 
@@ -80,7 +86,7 @@ function switchLine() {
 
 function addLine() {
     const newLine = {
-        txt: 'new line',
+        txt: '',
         size: DEFAULT_FONT_SIZE,
         align: DEFAULT_ALIGN,
         fill: DEFAULT_FILL,
