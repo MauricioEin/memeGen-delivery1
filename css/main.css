@@ -1,6 +1,10 @@
 :root {
     /* pallet */
-
+    --grad: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    --clr4: #fefefe;
+    --clr3: #87898d;
+    --clr2: #383b42;
+    --clr1: #22252c;
 
     /* BP */
 
@@ -12,17 +16,31 @@
 
 /* TYPOGRAPHY */
 
-/* @font-face {
-    font-family: playfair;
-    src: url(/fonts/playfair/PlayfairDisplay-Regular.ttf)
-} */
+@font-face {
+    font-family: poppins;
+    src: url(/fonts/Poppins/Poppins-Regular.ttf)
+}
+
+@font-face {
+    font-family: poppins-semibold;
+    src: url(/fonts/Poppins/Poppins-SemiBold.ttf)
+}
+
+@font-face {
+    font-family: poppins-extrabold;
+    src: url(/fonts/Poppins/Poppins-ExtraBold.ttf)
+}
 
 /* BASICS */
 
 html {
-    /* color: var(--clr1); */
-    /* font-family: playfair, sarif; */
-    /* line-height: 1.7142; */
+    color: var(--clr4);
+    font-family: poppins, sans-serif;
+}
+
+button {
+    font-family: poppins, sans-serif;
+
 }
 
 h1,
@@ -40,9 +58,9 @@ body {
     /* font-size: 0.875rem; */
 }
 
-/* img {
+img {
     width: 100%;
-} */
+}
 
 a {
     color: var(--clr-2)
@@ -55,7 +73,7 @@ a {
 .flex {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
 }
 
 
@@ -69,23 +87,83 @@ a {
 
 /* LAYOUT */
 
-body> :not(.full) {
+body>*:not(.full) {
     margin-left: 16px;
     margin-right: 16px;
 }
 
+header {
+    height: fit-content;
+    background-image: var(--grad);
+    padding-inline-start: 5.25rem;
+    padding-inline-end: 5.25rem;
+}
 
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.375rem;
+    height: 3.4em;
+}
 
+.main-nav {
+    flex-basis: 35%;
+}
 
-#txt-editor{
+header ul {
+    height: 100%;
+}
+
+header ul a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.gallery {
+    margin: 1rem;
+    background-color: var(--clr2);
+    padding: 1.5rem;
+}
+
+.search-bar {
+    margin-bottom: 3rem;
+    /* padding-inline-start: 1.3rem;
+    padding-inline-end: 1.3rem; */
+}
+
+.more-btn {
+    background-image: var(--grad);
+}
+
+.img-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 30px;
+    /* width:max-content; */
+    margin-inline-start: 20px;
+}
+
+.editor {
+    display: none;
+}
+
+#txt-editor {
     width: 100%;
 }
 
 /* COMPONENTS */
 
-body{
-    background-color: aqua;
+body {
+    background-color: var(--clr1);
 }
-canvas{
+
+
+
+
+
+canvas {
     background-color: white;
 }

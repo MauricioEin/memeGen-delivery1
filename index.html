@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body>
+<body onload="onInit()">
 
     <header class="full flex">
-        <div class="logo">memegen</div>
+        <div class="logo">memeGen</div>
         <nav class="main-nav">
             <ul class="flex clean-list">
                 <li> <a href="#">Gallery</a> </li>
@@ -24,8 +24,10 @@
 
     <section class="gallery">
 
-        <div class="search-bar">
+        <div class="search-bar flex">
             <input type="text" name="" id="searchByTxt">
+            <div class="search-words">BLA BLA BLA BLA</div>
+            <button class="more-btn">More</button>
         </div>
 
         <div class="img-container">
@@ -35,29 +37,31 @@
     </section>
 
     <section class="editor flex">
-        <canvas></canvas>
+        <div class="canvas-container">
+            <canvas id="my-canvas"></canvas>
+        </div>
 
         <div class="edit-menu">
             <div class="basic-features">
-                <input type="text" name="" id="txt-editor">
+                <input type="text" name="" id="txt-editor" oninput="onTextEdit(this.value)">
                 <button class="up">up</button>
                 <button class="down">down</button>
-                <button class="switch">switch</button>
-                <button class="add">add</button>
+                <button class="switch" onclick="onSwitchLine()">switch</button>
+                <button class="add" onclick="onAddLine()">add</button>
                 <button class="delete">delete</button>
             </div>
 
             <div class="style-features">
-                <button class="bigger">bigger</button>
-                <button class="smaller">smaller</button>
+                <button class="bigger" onclick="onSetFontSize(1)">bigger</button>
+                <button class="smaller" onclick="onSetFontSize(-1)">smaller</button>
                 <button class="align-start">align-start</button>
                 <button class="align-center">align-center</button>
                 <button class="align-end">align-end</button>
                 <select name="" id="font-selector">
                     <option value=""></option>
                 </select>
-                <button class="stroke">stroke</button>
-                <button class="color">color</button>
+                <input type="color" name="" id="stroke" value="#000000" oninput="onSetColor(this.value, this.id)">
+                <input type="color" name="" id="fill" value="#ffffff" oninput="onSetColor(this.value, this.id)">
             </div>
 
             <div class="stikers"></div>
@@ -76,9 +80,10 @@
 
     <footer></footer>
 
-    <script src="js/storage-service.js"></script>
-    <script src="js/canvas-service.js"></script>
-    <script src="js/main-controller.js"></script>
+    <!-- <script src="js/storage-service.js"></script> -->
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/gallery-controller.js"></script>
 </body>
 
 </html>
