@@ -22,6 +22,8 @@ function showEditor() {
     document.body.classList.add('editor-open')
     document.querySelector('.gallery').style.display = 'none'
     document.querySelector('#memes').style.display = 'none'
+    updateTxtInput()
+
 
 }
 function hideEditor() {
