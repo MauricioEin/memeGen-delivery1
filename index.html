@@ -66,7 +66,7 @@
                     <button class="align-center" onclick="onAlign('center')">⬌</button>
                     <button class="align-end" onclick="onAlign('end')">🡆</button>
                 </div>
-                <div><select name="" id="font-selector" oninput="onSetFont(this.value)">
+                <div class="non-btn-features"><select name="" id="font-selector" oninput="onSetFont(this.value)">
                         <option>impact</option>
                         <option>poppins</option>
                         <option>Courier New</option>
@@ -79,13 +79,14 @@
                 </div>
             </div>
 
-            <div class="stikers pill">
+            <div class="stickers pill">
             </div>
 
             <div class="editor-finish-links">
                 <a class="btn save rounded" onclick="onSave()">save</a>
                 <a class="btn download rounded" href="#" onclick="onDownload(this)" download="my-meme.jpg">download</a>
                 <a class="btn share rounded" onclick="onShare(this)">share</a>
+                <div class="fb-container"></div>
 
             </div>
 

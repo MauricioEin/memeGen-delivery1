@@ -39,6 +39,8 @@ function adjustFontSelector() {
 
 function renderMeme() {
 
+    resetShareBtn()
+
     const { selectedImgId: id, selectedLineIdx, lines } = getMeme()
     const img = document.querySelector(`[data-id="${id}"]`)
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -47,7 +49,6 @@ function renderMeme() {
 
         drawText(line, idx)
     })
-
 
 }
 
@@ -142,13 +143,20 @@ function onShare(elLink) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
         console.log(encodedUploadedImgUrl)
         // Create a link that on click will make a post in facebook with the image we uploaded
-        elLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
-        elLink.title = "Share on Facebook"
-        elLink.target = "_blank"
-        elLink.onclick = () => { window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`); return false; }
-        elLink.classList.add('fb')
-        elLink.innerHTML = 'Share on Fb'
+        document.querySelector('.fb-container').innerHTML =
+            `<a class="btn fb rounded" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" 
+            title="Share on Facebook" target="_blank" 
+            onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Share on FB  
+        </a>`
+        elLink.style.display = 'none'
+        elLink.innerHTML = 'share'
     }
     uploadImg(imgDataUrl, onSuccess)
 }
 
+function resetShareBtn() {
+    document.querySelector('.fb-container').innerHTML =''
+    document.querySelector('.share').style.display = 'inline'
+
+}

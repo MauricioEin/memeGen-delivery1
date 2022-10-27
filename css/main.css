@@ -1,6 +1,7 @@
 :root {
     /* pallet */
     --grad: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    --clr6: #64ca9c;
     --clr5: #19a59f;
     --clr4: #fefefe;
     --clr3: #87898d;
@@ -126,6 +127,7 @@ header {
     align-items: center;
     font-size: 1.375rem;
     height: var(--headerHeight);
+    cursor: default;
 }
 
 .main-nav {
@@ -261,7 +263,7 @@ body.editor-open .editor {
 .edit-menu {
     text-align: center;
     background-color: var(--clr2);
-    padding: 24px 40px;
+    padding: 24px 40px 0;
     min-width: 380px;
 }
 
@@ -325,6 +327,17 @@ canvas {
     font-weight: bold;
 }
 
+.edit-menu button:hover {
+    background-color: var(--clr6);
+    /* border-color: transparent; */
+    border-radius: 2px;
+}
+
+.non-btn-features>* {
+    font-size: 1.2rem;
+    height: 1.5em;
+}
+
 /* .style-features button {
     font-weight: bold;
 } */
@@ -339,6 +352,10 @@ canvas {
 .editor-finish-links a.fb {
     background-color: rgb(52, 52, 147);
     color: var(--clr4);
+    display: block;
+    margin: 20px auto;
+    width: fit-content;
+
 }
 
 .editor-finish-links a:hover {
