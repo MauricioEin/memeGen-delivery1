@@ -115,10 +115,10 @@ body {
 header {
     height: fit-content;
     background-image: var(--grad);
-    padding-inline-start: 5.25rem;
-    padding-inline-end: 5.25rem;
     z-index: 10;
     position: relative;
+    padding-inline-start: 1.5rem;
+    padding-inline-end: 1.5rem;
 }
 
 .logo {
@@ -129,7 +129,7 @@ header {
 }
 
 .main-nav {
-    flex-basis: 35%;
+    flex-basis:60%;
 }
 
 header ul {
@@ -145,22 +145,28 @@ header ul a {
 }
 
 .gallery,
-.memes {
+#memes {
     margin: 1rem;
-    background-color: var(--clr2);
     padding: 1.5rem;
+}
+
+.gallery {
+    background-color: var(--clr2);
+
 }
 
 .search-bar {
     margin-bottom: 3rem;
-    align-items: center;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
     /* padding-inline-start: 1.3rem;
     padding-inline-end: 1.3rem; */
 }
 
-.search-bar>*:not(:last-child) {
+/* .search-bar>*:not(:last-child) {
     margin-inline-end: 2%;
-}
+} */
 
 .search-by-txt {
     display: flex;
@@ -185,8 +191,14 @@ header ul a {
     -webkit-text-fill-color: transparent;
 }
 
+.autosearch {
+    flex-basis: 50%;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+
 .search-words {
-    flex-basis: 40%;
+    flex-basis: 70%;
     font-size: 0.875rem;
     background-color: var(--clr3);
     padding: 1em 2em;
@@ -206,11 +218,13 @@ header ul a {
 
 .img-container,
 .saved-memes-container {
+    
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-    /* width:max-content; */
-    margin-inline-start: 20px;
+    margin: auto;
+
 }
 
 .editor {
@@ -335,23 +349,61 @@ canvas {
 
 
 /* FOR MOBILE ONLY */
-@media (max-width:740px) {
-    .img-container {
+@media (max-width:780px) {
+
+    .img-container,
+    .saved-memes-container {
         /* background-color: #33be6d; */
 
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        background-color: #33be6d;
         /* width:max-content;  */
     }
 }
 
 /* MEDIUM SIZE+ */
-/* @media (min-width:740) {
-    .img-container {
-        grid-template-columns: repeat(auto-fill, 200px);
-        gap: 30px;
-       ///// width:max-content;
-    }    
+@media (min-width:780px) {
+header{
+    padding-inline-start: 3rem;
+    padding-inline-end: 3rem;
+    /* padding-inline-start: 5.25rem;
+    padding-inline-end: 5.25rem; */
+}
+.main-nav{
+    flex-basis: 45%;
+}
+    .img-container,
+    .saved-memes-container {
+        /* background-color: #33be6d; */
 
-} */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: auto;
+        /* width:max-content;  */
+    }
+}
+
+/* LARGE */
+
+@media (min-width:1015px) {
+    header{
+        /* padding-inline-start: 3rem;
+        padding-inline-end: 3rem; */
+        padding-inline-start: 5.25rem;
+        padding-inline-end: 5.25rem;
+    }
+    .main-nav{
+        flex-basis: 35%;
+    }
+    
+    .search-bar {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .img-container,
+    .saved-memes-container {
+        grid-template-columns: repeat(auto-fill, 200px);
+        margin-inline-start: 20px;
+    }
+
+    
+}
