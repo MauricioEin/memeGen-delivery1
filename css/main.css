@@ -1,0 +1,360 @@
+:root {
+    /* pallet */
+    --grad: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    --clr5: #19a59f;
+    --clr4: #fefefe;
+    --clr3: #87898d;
+    --clr2: #383b42;
+    --clr1: #22252c;
+
+    /* BP */
+    --headerHeight: 4.5rem;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* TYPOGRAPHY */
+
+@font-face {
+    font-family: poppins;
+    src: url(/fonts/Poppins/Poppins-Regular.ttf)
+}
+
+@font-face {
+    font-family: poppins-semibold;
+    src: url(/fonts/Poppins/Poppins-SemiBold.ttf)
+}
+
+@font-face {
+    font-family: poppins-extrabold;
+    src: url(/fonts/Poppins/Poppins-ExtraBold.ttf)
+}
+
+@font-face {
+    font-family: fa;
+    src: url(/fonts/FA/fa-brands-400.woff2)
+}
+
+
+/* BASICS */
+
+html {
+    color: var(--clr4);
+    font-family: poppins, sans-serif;
+}
+
+button {
+    font-family: poppins, sans-serif;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 2em;
+    margin-top: 0;
+    margin-bottom: 1em;
+    /* line-height: 1.3; */
+}
+
+body {
+    margin: 0;
+    /* font-size: 0.875rem; */
+}
+
+img {
+    width: 100%;
+}
+
+a {
+    color: var(--clr-2);
+    text-decoration: none;
+}
+
+
+
+/* HELPERS */
+
+/* flex helpers */
+.flex {
+    display: flex;
+    justify-content: space-between;
+    /* align-items: stretch; */
+}
+
+
+/* list helpers */
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+
+}
+
+/* layout helpers */
+.pill {
+    border-radius: 999px;
+}
+
+.rounded {
+    border-radius: 8px;
+}
+
+/* LAYOUT */
+
+body {
+    position: relative;
+}
+
+header {
+    height: fit-content;
+    background-image: var(--grad);
+    padding-inline-start: 5.25rem;
+    padding-inline-end: 5.25rem;
+    z-index: 10;
+    position: relative;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.375rem;
+    height: var(--headerHeight);
+}
+
+.main-nav {
+    flex-basis: 35%;
+}
+
+header ul {
+    height: 100%;
+}
+
+header ul a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.gallery,
+.memes {
+    margin: 1rem;
+    background-color: var(--clr2);
+    padding: 1.5rem;
+}
+
+.search-bar {
+    margin-bottom: 3rem;
+    align-items: center;
+    /* padding-inline-start: 1.3rem;
+    padding-inline-end: 1.3rem; */
+}
+
+.search-bar>*:not(:last-child) {
+    margin-inline-end: 2%;
+}
+
+.search-by-txt {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--clr1);
+    padding: 20px 25px 20px 50px;
+    flex-basis: 50%;
+}
+
+.search-by-txt input {
+    width: 80%;
+    font-size: 1.25rem;
+    background-color: transparent;
+    border-width: 0;
+    color: var(--clr4);
+}
+
+.search-by-txt span {
+    font-size: 2em;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.search-words {
+    flex-basis: 40%;
+    font-size: 0.875rem;
+    background-color: var(--clr3);
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+}
+
+.more-btn {
+    background-image: var(--grad);
+    font-size: 1.125rem;
+    padding: 0.5em 1.5em;
+    color: var(--clr4);
+    border-width: 0;
+}
+
+.img-container,
+.saved-memes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    gap: 30px;
+    /* width:max-content; */
+    margin-inline-start: 20px;
+}
+
+.editor {
+    position: fixed;
+    inset: 0;
+    transform: translateX(100%);
+    background-color: var(--clr1);
+    width: 100%;
+    padding-top: 170px;
+    padding-inline-start: 95px;
+    padding-inline-end: 95px;
+    /* padding-top: var(--headerHeight);  */
+    gap: 10%;
+    z-index: 5;
+    transition: transform .6s;
+}
+
+body.editor-open .editor {
+    transform: translateX(0);
+}
+
+.editor>* {
+    width: 50%;
+    height: fit-content;
+}
+
+.canvas-container {
+    max-width: 70vh;
+}
+
+.edit-menu {
+    text-align: center;
+    background-color: var(--clr2);
+    padding: 24px 40px;
+}
+
+.edit-menu>* {
+    font-size: 1.5rem;
+    margin-bottom: 1em;
+}
+
+#txt-editor {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: poppins;
+    font-size: 1.5rem;
+    padding-top: .2em;
+    padding-bottom: .2em;
+    border-width: 0;
+}
+
+.style-features {
+    background-color: var(--clr5);
+    padding: 10px 10px 20px;
+}
+
+
+
+#txt-editor {
+    width: 100%;
+}
+
+/* COMPONENTS */
+
+body {
+    background-color: var(--clr1);
+}
+
+.img-container img,
+.saved-memes-container img {
+    cursor: pointer;
+}
+
+
+
+
+canvas {
+    background-color: white;
+}
+
+.edit-menu #font-selector {
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.basic-features input {
+    margin-bottom: 10px;
+}
+
+.basic-features button {
+    font-size: 2rem;
+    height: 1.5em;
+    width: 1.5em;
+    font-weight: bold;
+}
+
+.style-features button {
+    font-weight: bold;
+}
+
+.editor-finish-links a {
+    padding: 6px;
+    background-color: var(--clr4);
+    color: var(--clr1);
+    cursor: pointer;
+}
+
+.editor-finish-links a.fb {
+    background-color: rgb(52, 52, 147);
+    color: var(--clr4);
+}
+
+.editor-finish-links a:hover {
+    background-image: var(--grad);
+    color: var(--clr4);
+}
+
+#memes {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.style-features .align-start::before {
+    /* font-family: fa;
+content:"\f036"; */
+}
+
+
+/* FOR MOBILE ONLY */
+/* @media (max-width:740) {
+    .img-container {
+         grid-template-columns: repeat(4, 1fr);
+        gap: 30px; 
+        background-color: #33be6d;
+        /// width:max-content; 
+    }
+} */
+
+/* MEDIUM SIZE+ */
+/* @media (min-width:740) {
+    .img-container {
+        grid-template-columns: repeat(auto-fill, 200px);
+        gap: 30px;
+       ///// width:max-content;
+    }    
+
+} */
