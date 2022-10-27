@@ -1,5 +1,4 @@
 'use strict'
-
 var gElCanvas
 var gCtx
 
@@ -9,15 +8,16 @@ function onInit() {
     gCtx = gElCanvas.getContext('2d')
     addListeners()
     resizeCanvas()
-    setTimeout(renderMeme, 1000)
+    adjustFontMenu()
     window.addEventListener('resize', () => { resizeCanvas(), renderMeme() })
-
-
+    renderSavedMemes()
 }
 
 function addListeners() {
     // document.querySelector('#txt-editor').addEventListener()
 }
+
+
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
@@ -25,30 +25,48 @@ function resizeCanvas() {
     // gElCanvas.height = elContainer.offsetHeight
 }
 
+function adjustFontMenu() {
+    const elOpts = document.querySelectorAll('#font-selector option')
+    elOpts.forEach(opt => opt.style.fontFamily = opt.value)
+    adjustFontSelector()
+}
+
+function adjustFontSelector() {
+    const elSelect = document.querySelector('#font-selector')
+    elSelect.style.fontFamily = elSelect.value
+}
 
 
 function renderMeme() {
 
-    const { selectedImgId: id, lines } = getMeme()
+    const { selectedImgId: id, selectedLineIdx, lines } = getMeme()
     const img = document.querySelector(`[data-id="${id}"]`)
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+    if (selectedLineIdx < 0) return
     lines.forEach((line, idx) => {
-        drawText(line.txt, line.size, line.stroke, line.fill, idx)
+
+        drawText(line, idx)
     })
 
 
 }
 
-function drawText(text, size, stroke, fill, lineIdx) {
-    const startX = 10
-    const startY = (lineIdx === 0) ? size :
-        (lineIdx === 1) ? gElCanvas.height - size : gElCanvas.height / 2
-    gCtx.lineWidth = 1
+function drawText({ txt, size, font, stroke, fill, startPos, align }, lineIdx) {
+
+    if (startPos.y === null) {
+        //is this awful? changing it from  the controller instead
+        // of making a setStartY function that does the same?
+        startPos.y = (lineIdx === 0) ? size :
+            (lineIdx === 1) ? gElCanvas.height - size : gElCanvas.height / 2
+    }
+    const centerX = gElCanvas.width / 2
+    gCtx.lineWidth = size / 20
     gCtx.strokeStyle = stroke
     gCtx.fillStyle = fill
-    gCtx.font = `${size}px Arial`
-    gCtx.fillText(text, startX, startY)
-    gCtx.strokeText(text, startX, startY)
+    gCtx.font = `${size}px ${font}`
+    gCtx.textAlign = align
+    gCtx.fillText(txt || 'enter text here', startPos.x || centerX, startPos.y)
+    gCtx.strokeText(txt || 'enter text here', startPos.x || centerX, startPos.y)
 }
 
 function onTextEdit(txt) {
@@ -68,6 +86,8 @@ function onSetFontSize(dif) {
 
 function onSwitchLine() {
     switchLine()
+    updateTxtInput()
+
 }
 
 function onAddLine() {
@@ -76,8 +96,59 @@ function onAddLine() {
     updateTxtInput()
 }
 
+function onMoveTxt(dif) {
+    moveTxt(dif)
+    renderMeme()
+}
+
+function onDeleteLine() {
+    deleteLine()
+    renderMeme()
+    updateTxtInput()
+}
+
+function onAlign(direction) {
+    align(direction, gElCanvas.width)
+    renderMeme()
+}
+
+function onSetFont(font) {
+    adjustFontSelector()
+    setFont(font)
+    renderMeme()
+}
+
+function onDownload(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')// image/jpeg the default format
+    elLink.href = imgContent
+
+}
+
 function updateTxtInput() {
     const meme = getMeme()
-    const txt = meme.lines[meme.selectedLineIdx].txt
+    const txt = (meme.selectedLineIdx >= 0) ? meme.lines[meme.selectedLineIdx].txt : ''
     document.querySelector('#txt-editor').value = txt
 }
+
+function onSave() {
+    saveMeme(gElCanvas.toDataURL())
+}
+
+function onShare(elLink) {
+    elLink.innerHTML = 'loading...'
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg")// Gets the canvas content as an image format
+
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        console.log(encodedUploadedImgUrl)
+        // Create a link that on click will make a post in facebook with the image we uploaded
+        elLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`
+        elLink.title = "Share on Facebook"
+        elLink.target = "_blank"
+        elLink.onclick = () => { window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`); return false; }
+        elLink.classList.add('fb')
+        elLink.innerHTML = 'Share on Fb'
+    }
+    uploadImg(imgDataUrl, onSuccess)
+}
+

@@ -15,14 +15,14 @@
         <div class="logo">memeGen</div>
         <nav class="main-nav">
             <ul class="flex clean-list">
-                <li> <a href="#">Gallery</a> </li>
-                <li> <a href="#">Memes</a> </li>
+                <li> <a href="#" onclick="hideEditor()">Gallery</a> </li>
+                <li> <a href="#memes">Saved Memes</a> </li>
                 <li> <a href="#">About</a> </li>
             </ul>
         </nav>
     </header>
 
-    <section class="gallery">
+    <section class="gallery" id="gallery">
 
         <div class="search-bar flex">
             <div class="search-by-txt pill">
@@ -41,37 +41,45 @@
 
     <section class="editor flex">
         <div class="canvas-container rounded">
-            <canvas id="my-canvas"></canvas>
+            <canvas id="my-canvas">
         </div>
 
         <div class="edit-menu rounded">
             <div class="basic-features">
-                <input type="text" class="pill" placeholder="your text" id="txt-editor" oninput="onTextEdit(this.value)">
-                <button class="up">up</button>
-                <button class="down">down</button>
-                <button class="switch" onclick="onSwitchLine()">switch</button>
-                <button class="add" onclick="onAddLine()">add</button>
-                <button class="delete">delete</button>
+                <input type="text" class="pill" placeholder="enter text here" id="txt-editor"
+                    oninput="onTextEdit(this.value)">
+                <button class="up" onclick="onMoveTxt(-10)">🡅</button>
+                <button class="down" onclick="onMoveTxt(10)">🡇</button>
+                <button class="switch" onclick="onSwitchLine()">⮁</button>
+                <button class="add" onclick="onAddLine()">+</button>
+                <button class="delete" onclick="onDeleteLine()">🗑</button>
             </div>
 
             <div class="style-features rounded">
-                <button class="bigger" onclick="onSetFontSize(1)">bigger</button>
-                <button class="smaller" onclick="onSetFontSize(-1)">smaller</button>
-                <button class="align-start">align-start</button>
-                <button class="align-center">align-center</button>
-                <button class="align-end">align-end</button>
-                <select name="" id="font-selector">
-                    <option value=""></option>
+                <button class="bigger" onclick="onSetFontSize(1)">A⁺</button>
+                <button class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
+                <button class="align-start" onclick="onAlign('start')">align-start</button>
+                <button class="align-center" onclick="onAlign('center')">align-center</button>
+                <button class="align-end" onclick="onAlign('end')">align-end</button>
+                <select name="" id="font-selector" oninput="onSetFont(this.value)">
+                    <option>impact</option>
+                    <option>poppins</option>
+                    <option>Courier New</option>
+                    <option value="Franklin Gothic Medium">franklin</option>
+                    <option>Trebuchet MS</option>
+                    <option>cursive</option>
                 </select>
                 <input type="color" name="" id="stroke" value="#000000" oninput="onSetColor(this.value, this.id)">
                 <input type="color" name="" id="fill" value="#ffffff" oninput="onSetColor(this.value, this.id)">
             </div>
 
-            <div class="stikers pill"></div>
+            <div class="stikers pill">
+            </div>
 
-            <div class="editor-btns">
-                <button class="share">share</button>
-                <button class="download">download</button>
+            <div class="editor-finish-links">
+                <a class="btn save rounded" onclick="onSave()">save</a>
+                <a class="btn download rounded" href="#" onclick="onDownload(this)" download="my-meme.jpg">download</a>
+                <a class="btn share rounded" onclick="onShare(this)">share</a>
 
             </div>
 
@@ -79,14 +87,22 @@
 
     </section>
 
+    <section id="memes">
+        <h1>Saved Memes</h1>
+        <div class="saved-memes-container">
+
+        </div>
+    </section>
+
     <section class="about"></section>
 
     <footer></footer>
 
-    <!-- <script src="js/storage-service.js"></script> -->
+    <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/gallery-controller.js"></script>
+    <script src="js/saved-memes-controller.js"></script>
 </body>
 
 </html>
