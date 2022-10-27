@@ -143,6 +143,7 @@ header ul a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /* background-color: #fefefe; */
 
 }
 
@@ -280,11 +281,21 @@ body.editor-open .editor {
     padding-top: .2em;
     padding-bottom: .2em;
     border-width: 0;
+    box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+    margin-bottom: 15px;
 }
 
 .style-features {
     background-color: var(--clr5);
     padding: 10px 10px 20px;
+    width: fit-content;
+    margin: auto;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
+}
+
+.style-features>*>* {
+    box-shadow: 1px 3px 0 rgba(92, 92, 92, 0.55);
 }
 
 
@@ -302,9 +313,12 @@ body {
 .img-container img,
 .saved-memes-container img {
     cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.377);
 }
 
-
+.autosearch>* {
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+}
 
 
 canvas {
@@ -325,22 +339,23 @@ canvas {
     height: 1.5em;
     width: 1.5em;
     font-weight: bold;
+    border-radius: 10px;
+    border-color: transparent;
+
 }
 
 .edit-menu button:hover {
     background-color: var(--clr6);
     /* border-color: transparent; */
-    border-radius: 2px;
+    /* border-radius: 2px; */
 }
 
 .non-btn-features>* {
     font-size: 1.2rem;
     height: 1.5em;
+    margin-top: 20px;
 }
 
-/* .style-features button {
-    font-weight: bold;
-} */
 
 .editor-finish-links a {
     padding: 6px;
@@ -350,7 +365,8 @@ canvas {
 }
 
 .editor-finish-links a.fb {
-    background-color: rgb(52, 52, 147);
+    background-color: #1e7cd3;
+    box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 #7bb9ff6d;
     color: var(--clr4);
     display: block;
     margin: 20px auto;
