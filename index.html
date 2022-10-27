@@ -40,6 +40,7 @@
     </section>
 
     <section class="editor flex">
+
         <div class="canvas-container rounded">
             <canvas id="my-canvas">
         </div>
@@ -56,21 +57,24 @@
             </div>
 
             <div class="style-features rounded">
-                <button class="bigger" onclick="onSetFontSize(1)">A⁺</button>
-                <button class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
-                <button class="align-start" onclick="onAlign('start')">align-start</button>
-                <button class="align-center" onclick="onAlign('center')">align-center</button>
-                <button class="align-end" onclick="onAlign('end')">align-end</button>
-                <select name="" id="font-selector" oninput="onSetFont(this.value)">
-                    <option>impact</option>
-                    <option>poppins</option>
-                    <option>Courier New</option>
-                    <option value="Franklin Gothic Medium">franklin</option>
-                    <option>Trebuchet MS</option>
-                    <option>cursive</option>
-                </select>
-                <input type="color" name="" id="stroke" value="#000000" oninput="onSetColor(this.value, this.id)">
-                <input type="color" name="" id="fill" value="#ffffff" oninput="onSetColor(this.value, this.id)">
+                <div>
+                    <button class="bigger" onclick="onSetFontSize(1)">A⁺</button>
+                    <button class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
+                    <button class="align-start" onclick="onAlign('start')">align-start</button>
+                    <button class="align-center" onclick="onAlign('center')">align-center</button>
+                    <button class="align-end" onclick="onAlign('end')">align-end</button>
+                </div>
+                <div><select name="" id="font-selector" oninput="onSetFont(this.value)">
+                        <option>impact</option>
+                        <option>poppins</option>
+                        <option>Courier New</option>
+                        <option value="Franklin Gothic Medium">franklin</option>
+                        <option>Trebuchet MS</option>
+                        <option>cursive</option>
+                    </select>
+                    <input type="color" name="" id="stroke" value="#000000" oninput="onSetColor(this.value, this.id)">
+                    <input type="color" name="" id="fill" value="#ffffff" oninput="onSetColor(this.value, this.id)">
+                </div>
             </div>
 
             <div class="stikers pill">

@@ -333,21 +333,18 @@ canvas {
     padding-top: 30px;
 }
 
-.style-features .align-start::before {
-    /* font-family: fa;
-content:"\f036"; */
-}
-
 
 /* FOR MOBILE ONLY */
-/* @media (max-width:740) {
+@media (max-width:740px) {
     .img-container {
-         grid-template-columns: repeat(4, 1fr);
-        gap: 30px; 
+        /* background-color: #33be6d; */
+
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
         background-color: #33be6d;
-        /// width:max-content; 
+        /* width:max-content;  */
     }
-} */
+}
 
 /* MEDIUM SIZE+ */
 /* @media (min-width:740) {
