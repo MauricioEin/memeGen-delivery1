@@ -133,6 +133,8 @@ function updateTxtInput() {
 
 function onSave() {
     saveMeme(gElCanvas.toDataURL())
+    hideEditor()
+    renderSavedMemes()
 }
 
 function onShare(elLink) {
