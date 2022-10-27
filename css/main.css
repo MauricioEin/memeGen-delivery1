@@ -20,22 +20,22 @@
 
 @font-face {
     font-family: poppins;
-    src: url(/fonts/Poppins/Poppins-Regular.ttf)
+    src: url(../fonts/Poppins/Poppins-Regular.ttf)
 }
 
 @font-face {
     font-family: poppins-semibold;
-    src: url(/fonts/Poppins/Poppins-SemiBold.ttf)
+    src: url(../fonts/Poppins/Poppins-SemiBold.ttf)
 }
 
 @font-face {
     font-family: poppins-extrabold;
-    src: url(/fonts/Poppins/Poppins-ExtraBold.ttf)
+    src: url(../fonts/Poppins/Poppins-ExtraBold.ttf)
 }
 
 @font-face {
     font-family: fa;
-    src: url(/fonts/FA/fa-brands-400.woff2)
+    src: url(../fonts/FA/fa-brands-400.woff2)
 }
 
 
@@ -129,7 +129,7 @@ header {
 }
 
 .main-nav {
-    flex-basis:60%;
+    flex-basis: 60%;
 }
 
 header ul {
@@ -218,7 +218,7 @@ header ul a {
 
 .img-container,
 .saved-memes-container {
-    
+
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
     grid-template-columns: repeat(2, 1fr);
@@ -230,26 +230,29 @@ header ul a {
 .editor {
     position: fixed;
     inset: 0;
-    transform: translateX(100%);
+    transform: translateX(130%);
     background-color: var(--clr1);
     width: 100%;
-    padding-top: 170px;
+    padding-top: 70px;
     padding-inline-start: 95px;
     padding-inline-end: 95px;
     /* padding-top: var(--headerHeight);  */
     gap: 10%;
     z-index: 5;
     transition: transform .6s;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1260px;
+    gap: 2rem;
 }
 
 body.editor-open .editor {
     transform: translateX(0);
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.editor>* {
-    width: 50%;
-    height: fit-content;
-}
 
 .canvas-container {
     max-width: 70vh;
@@ -259,6 +262,7 @@ body.editor-open .editor {
     text-align: center;
     background-color: var(--clr2);
     padding: 24px 40px;
+    min-width: 380px;
 }
 
 .edit-menu>* {
@@ -314,16 +318,16 @@ canvas {
     margin-bottom: 10px;
 }
 
-.basic-features button {
+.edit-menu button {
     font-size: 2rem;
     height: 1.5em;
     width: 1.5em;
     font-weight: bold;
 }
 
-.style-features button {
+/* .style-features button {
     font-weight: bold;
-}
+} */
 
 .editor-finish-links a {
     padding: 6px;
@@ -361,15 +365,17 @@ canvas {
 
 /* MEDIUM SIZE+ */
 @media (min-width:780px) {
-header{
-    padding-inline-start: 3rem;
-    padding-inline-end: 3rem;
-    /* padding-inline-start: 5.25rem;
+    header {
+        padding-inline-start: 3rem;
+        padding-inline-end: 3rem;
+        /* padding-inline-start: 5.25rem;
     padding-inline-end: 5.25rem; */
-}
-.main-nav{
-    flex-basis: 45%;
-}
+    }
+
+    .main-nav {
+        flex-basis: 45%;
+    }
+
     .img-container,
     .saved-memes-container {
         /* background-color: #33be6d; */
@@ -379,21 +385,40 @@ header{
         margin: auto;
         /* width:max-content;  */
     }
+
+
+
 }
+
+@media (min-width:920px) {
+
+    .editor {
+        flex-direction: row;
+    }
+
+    .editor>* {
+        width: 50%;
+        height: fit-content;
+    }
+}
+
+
+
 
 /* LARGE */
 
 @media (min-width:1015px) {
-    header{
+    header {
         /* padding-inline-start: 3rem;
         padding-inline-end: 3rem; */
         padding-inline-start: 5.25rem;
         padding-inline-end: 5.25rem;
     }
-    .main-nav{
+
+    .main-nav {
         flex-basis: 35%;
     }
-    
+
     .search-bar {
         flex-direction: row;
         align-items: center;
@@ -405,5 +430,5 @@ header{
         margin-inline-start: 20px;
     }
 
-    
+
 }
