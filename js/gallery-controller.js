@@ -12,7 +12,6 @@ function renderGallery() {
 }
 
 function onImgSelect(id) {
-    console.log('clicked', id)
     setImg(id)
     showEditor()
     renderMeme()

@@ -10,7 +10,6 @@
 
     /* BP */
     --headerHeight: 4.5rem;
-
 }
 
 * {
@@ -32,6 +31,16 @@
 @font-face {
     font-family: poppins-extrabold;
     src: url(../fonts/Poppins/Poppins-ExtraBold.ttf)
+}
+
+@font-face {
+    font-family: impact;
+    src: url(../fonts/Impact/impact.ttf)
+}
+
+@font-face {
+    font-family: Franklin Gothic Medium;
+    src: url(../fonts/Franklin/Franklin\ Gothic\ Medium.ttf)
 }
 
 @font-face {
@@ -138,14 +147,27 @@ header ul {
     height: 100%;
 }
 
+header li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 header ul a {
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: #fefefe; */
-
+    text-align: center;
+    padding: .5em 1em;
 }
+
+/* header ul a:hover {
+    color: var(--clr1);
+
+    background-color: #fefefe;
+    box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+
+} */
 
 .gallery,
 #memes {
@@ -288,7 +310,7 @@ body.editor-open .editor {
 .style-features {
     background-color: var(--clr5);
     padding: 10px 10px 20px;
-    width: fit-content;
+    width: 18.75rem;
     margin: auto;
     padding-inline-start: 10px;
     padding-inline-end: 10px;
@@ -337,17 +359,40 @@ canvas {
 .edit-menu button {
     font-size: 2rem;
     height: 1.5em;
-    width: 1.5em;
+    width: 1.56em;
     font-weight: bold;
     border-radius: 10px;
-    border-color: transparent;
-
+    border-width: 0;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
 }
 
-.edit-menu button:hover {
+.basic-features button:hover {
+    color: rgba(255, 255, 255, 0.813);
+}
+
+.basic-features .up,
+.basic-features .down {
+    box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
+}
+
+.basic-features .switch {
+    box-shadow: 1px 5px 0 #978804, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    background-image: linear-gradient(-38deg, #dcc466 0%, #ceb940 50%, #bb950c 100%);
+}
+
+.basic-features .add {
+    background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
+    box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+}
+
+.basic-features .delete {
+    background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
+    box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+}
+
+.style-features button:hover {
     background-color: var(--clr6);
-    /* border-color: transparent; */
-    /* border-radius: 2px; */
 }
 
 .non-btn-features>* {
@@ -362,6 +407,8 @@ canvas {
     background-color: var(--clr4);
     color: var(--clr1);
     cursor: pointer;
+    box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.235);
+
 }
 
 .editor-finish-links a.fb {
@@ -388,12 +435,12 @@ canvas {
 /* FOR MOBILE ONLY */
 @media (max-width:780px) {
 
-    .img-container,
-    .saved-memes-container {
-        /* background-color: #33be6d; */
-
-        /* width:max-content;  */
+    header ul a:hover {
+        /* color: var(--clr2); */
+        font-weight: bold;
+        text-shadow: 3px 2px 5px var(--clr1);
     }
+
 }
 
 /* MEDIUM SIZE+ */
@@ -407,6 +454,14 @@ canvas {
 
     .main-nav {
         flex-basis: 45%;
+    }
+
+    header ul a:hover {
+        color: var(--clr1);
+
+        background-color: #fefefe;
+        box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
+
     }
 
     .img-container,

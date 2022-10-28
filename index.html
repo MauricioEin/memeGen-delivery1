@@ -16,7 +16,7 @@
         <nav class="main-nav">
             <ul class="flex clean-list">
                 <li> <a class="pill" href="#" onclick="hideEditor()">Gallery</a> </li>
-                <li> <a class="pill" href="#memes">Saved Memes</a> </li>
+                <li> <a class="pill" href="#memes" onclick="hideEditor()">Saved Memes</a> </li>
                 <li> <a class="pill" href="#">About</a> </li>
             </ul>
         </nav>
@@ -62,9 +62,9 @@
                 <div>
                     <button class="bigger" onclick="onSetFontSize(1)">A⁺</button>
                     <button class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
-                    <button class="align-start" onclick="onAlign('start')">🡄</button>
+                    <button class="align-start" onclick="onAlign('start')">|🡄</button>
                     <button class="align-center" onclick="onAlign('center')">⬌</button>
-                    <button class="align-end" onclick="onAlign('end')">🡆</button>
+                    <button class="align-end" onclick="onAlign('end')">🡆|</button>
                 </div>
                 <div class="non-btn-features"><select name="" id="font-selector" oninput="onSetFont(this.value)">
                         <option>impact</option>

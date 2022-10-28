@@ -38,17 +38,16 @@ function adjustFontSelector() {
 
 
 function renderMeme() {
-
-    resetShareBtn()
-
     const { selectedImgId: id, selectedLineIdx, lines } = getMeme()
     const img = document.querySelector(`[data-id="${id}"]`)
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+    setStyleInputs(selectedLineIdx, lines)
+    resetShareBtn()
     if (selectedLineIdx < 0) return
     lines.forEach((line, idx) => {
-
         drawText(line, idx)
     })
+
 
 }
 
@@ -87,6 +86,7 @@ function onSetFontSize(dif) {
 
 function onSwitchLine() {
     switchLine()
+    setStyleInputs()
     updateTxtInput()
 
 }
@@ -132,9 +132,13 @@ function updateTxtInput() {
 }
 
 function onSave() {
+    console.log('saving')
     saveMeme(gElCanvas.toDataURL())
-    hideEditor()
     renderSavedMemes()
+    hideEditor()
+    document.getElementById("memes").scrollIntoView();
+
+
 }
 
 function onShare(elLink) {
@@ -158,7 +162,17 @@ function onShare(elLink) {
 }
 
 function resetShareBtn() {
-    document.querySelector('.fb-container').innerHTML =''
+    document.querySelector('.fb-container').innerHTML = ''
     document.querySelector('.share').style.display = 'inline'
 
+}
+
+function setStyleInputs() {
+    var {selectedLineIdx, lines} = getMeme()
+    selectedLineIdx = Math.max(selectedLineIdx, 0)
+    const { stroke, fill, font} = lines[selectedLineIdx]
+    document.getElementById('stroke').value = stroke
+    document.getElementById('fill').value = fill
+    document.getElementById('font-selector').value = font
+    adjustFontSelector()
 }

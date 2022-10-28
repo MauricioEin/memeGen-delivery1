@@ -2,8 +2,8 @@
 
 const DEFAULT_FONT_SIZE = 40
 const DEFAULT_FONT_FAMILY = 'impact'
-const DEFAULT_STROKE = 'black'
-const DEFAULT_FILL = 'white'
+const DEFAULT_STROKE = '#000000'
+const DEFAULT_FILL = '#ffffff'
 const DEFAULT_ALIGN = 'center'
 const TEXT_PADDING = 10
 
@@ -62,7 +62,9 @@ function setImg(id) {
 }
 
 function setColor(clr, clrTarget) {
-    gMeme.lines[gMeme.selectedLineIdx][clrTarget] = clr
+    const lineIdx = Math.max(gMeme.selectedLineIdx, 0)
+
+    gMeme.lines[lineIdx][clrTarget] = clr
 }
 
 function setFontSize(dif) {
@@ -71,7 +73,9 @@ function setFontSize(dif) {
 }
 
 function setFont(font) {
-    gMeme.lines[gMeme.selectedLineIdx].font = font
+    const lineIdx = Math.max(gMeme.selectedLineIdx, 0)
+
+    gMeme.lines[lineIdx].font = font
 }
 
 function setCurrMeme(savedIdx) {
