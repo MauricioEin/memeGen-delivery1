@@ -195,6 +195,10 @@ header ul a {
     padding: 1.5rem 1.5rem 8rem;
 }
 
+#about{
+    padding-bottom: 4rem;
+}
+
 .gallery {
     background-color: var(--clr2);
 
@@ -401,6 +405,11 @@ body.editor-open .editor {
     padding: 15px;
 
 }
+
+.social-buttons a:hover {
+background-color: var(--clr5);
+}
+
 
 
 .social-buttons img {
