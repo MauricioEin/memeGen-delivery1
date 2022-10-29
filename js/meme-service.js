@@ -10,31 +10,35 @@ const TEXT_PADDING = 10
 const MEMES_STORAGE_KEY = 'savedMemes'
 
 const gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-const gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['funny', 'cat'] },
-{ id: 2, url: 'img/2.jpg', keywords: ['funny', 'cat'] },
-{ id: 3, url: 'img/3.jpg', keywords: ['funny', 'cat'] },
-{ id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] },
-{ id: 5, url: 'img/5.jpg', keywords: ['funny', 'cat'] },
-{ id: 6, url: 'img/6.jpg', keywords: ['funny', 'cat'] },
-{ id: 7, url: 'img/7.jpg', keywords: ['funny', 'cat'] },
-{ id: 8, url: 'img/8.jpg', keywords: ['funny', 'cat'] },
-{ id: 9, url: 'img/9.jpg', keywords: ['funny', 'cat'] },
-{ id: 10, url: 'img/10.jpg', keywords: ['funny', 'cat'] },
-{ id: 11, url: 'img/11.jpg', keywords: ['funny', 'cat'] },
-{ id: 12, url: 'img/12.jpg', keywords: ['funny', 'cat'] },
-{ id: 13, url: 'img/13.jpg', keywords: ['funny', 'cat'] },
-{ id: 14, url: 'img/14.jpg', keywords: ['funny', 'cat'] },
-{ id: 15, url: 'img/15.jpg', keywords: ['funny', 'cat'] },
-{ id: 16, url: 'img/16.jpg', keywords: ['funny', 'cat'] },
-{ id: 17, url: 'img/17.jpg', keywords: ['funny', 'cat'] },
-{ id: 18, url: 'img/18.jpg', keywords: ['funny', 'cat'] }];
+const gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['politic', 'serious', 'hair', 'explain', 'man'] },
+{ id: 2, url: 'img/2.jpg', keywords: ['dog', 'kiss', 'friends'] },
+{ id: 3, url: 'img/3.jpg', keywords: ['baby', 'dog', 'sleep', 'friends'] },
+{ id: 4, url: 'img/4.jpg', keywords: ['cat', 'sleep'] },
+{ id: 5, url: 'img/5.jpg', keywords: ['baby', 'serious'] },
+{ id: 6, url: 'img/6.jpg', keywords: ['hair', 'explain', 'man'] },
+{ id: 7, url: 'img/7.jpg', keywords: ['baby', 'listen', 'shock'] },
+{ id: 8, url: 'img/8.jpg', keywords: ['listen', 'hair', 'man'] },
+{ id: 9, url: 'img/9.jpg', keywords: ['you', 'laugh'] },
+{ id: 10, url: 'img/10.jpg', keywords: ['politic', 'laugh', 'man'] },
+{ id: 11, url: 'img/11.jpg', keywords: ['kiss', 'gay', 'friends', 'man'] },
+{ id: 12, url: 'img/12.jpg', keywords: ['you', 'man', 'man'] },
+{ id: 13, url: 'img/13.jpg', keywords: ['cheers', 'hair', 'man'] },
+{ id: 14, url: 'img/14.jpg', keywords: ['serious', 'listen', 'shock', 'man'] },
+{ id: 15, url: 'img/15.jpg', keywords: ['serious', 'hair', 'explain', 'man'] },
+{ id: 16, url: 'img/16.jpg', keywords: ['laugh', 'listen', 'shock', 'man'] },
+{ id: 17, url: 'img/17.jpg', keywords: ['politic', 'serious', 'explain', 'man'] },
+{ id: 18, url: 'img/18.jpg', keywords: ['friends', 'listen', 'shock'] }];
 
-const gSavedMemes = loadFromStorage(MEMES_STORAGE_KEY) || []
+const gSavedMemes = loadFromStorage(MEMES_STORAGE_KEY) || getInitialMemes()
 var gMeme
-// Getters:
+var gFilter = ''
+const gPopKeywords = { friends: 5, baby: 8, dog: 14, listen: 4, serious: 6, laugh: 5, cat: 8, kiss: 4, politic: 4, you: 3, shock: 5, hair: 2, cheers: 2, explain: 2, gay: 2, man: 2, sleep: 5 }
+
+// GETTERS:
+
 
 function getImgs() {
-    return gImgs
+    return gImgs.filter(img => img.keywords.some(keyword => keyword.includes(gFilter)))
 }
 
 function getMeme() {
@@ -45,7 +49,23 @@ function getSavedMemes() {
     return gSavedMemes
 }
 
-// setters:
+function getKeywords() {
+    const keywords = []
+    gImgs.forEach(img => {
+        keywords.push(...(img.keywords.filter(keyword => !keywords.includes(keyword))))
+    })
+    return keywords.sort((a, b) => a.localeCompare(b))
+}
+
+function getPopularKeywords() {
+    return Object.entries(gPopKeywords)
+
+}
+
+// SETTERS:
+function setFilter(filter) {
+    gFilter = filter
+}
 
 function setLineTxt(txt) {
     if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = 0
@@ -82,7 +102,13 @@ function setCurrMeme(savedIdx) {
     gMeme = JSON.parse(JSON.stringify(gSavedMemes[savedIdx]))
 }
 
-// managing meme elements:
+function updatePopularKeywords(word) {
+    gPopKeywords[word] ? gPopKeywords[word]++ : gPopKeywords[word] = 1
+    console.log(gPopKeywords)
+}
+
+
+// MANAGING MEME ELEMENTS:
 
 function switchLine() {
     gMeme.selectedLineIdx++
@@ -139,7 +165,7 @@ function align(direction, canvasWidth) {
     gMeme.lines[gMeme.selectedLineIdx].align = direction
 }
 
-// uploading, saving, downloading
+// uploading, saving, downloading, deleting
 
 function uploadImg(imgDataUrl, onSuccess) {
     const formData = new FormData()
@@ -166,6 +192,21 @@ function saveMeme(dataUrl) {
     _saveMemesToStorage()
 }
 
+function deleteMeme(idx) {
+    gSavedMemes.splice(idx, 1)
+    _saveMemesToStorage()
+}
 function _saveMemesToStorage() {
     saveToStorage(MEMES_STORAGE_KEY, gSavedMemes)
+}
+
+
+
+
+
+function getInitialMemes() {
+    return [{ "selectedImgId": "18", "selectedLineIdx": 1, "lines": [{ "txt": "BLA BLA BLA", "size": 40, "font": "impact", "align": "center", "fill": "#ffffff", "stroke": "#000000", "startPos": { "x": null, "y": 40 } }, { "txt": "yep...", "size": 40, "font": "impact", "align": "start", "fill": "#ffffff", "stroke": "#000000", "startPos": { "x": 10, "y": 465 } }], dataUrl: 'img/initial-memes/sample1.png' },
+    { "selectedImgId": "1", "selectedLineIdx": 2, "lines": [{ "txt": "this is a test", "size": 40, "font": "impact", "align": "center", "fill": "#a83e3e", "stroke": "#000000", "startPos": { "x": null, "y": 40 } }, { "txt": "and i never lie", "size": 40, "font": "impact", "align": "center", "fill": "#4dcbbd", "stroke": "#000000", "startPos": { "x": null, "y": 423 } }, { "txt": "oh yes", "size": 40, "font": "impact", "align": "center", "fill": "#ccaa2e", "stroke": "#000000", "startPos": { "x": null, "y": 231.5 } }], dataUrl: 'img/initial-memes/sample2.png' },
+    { "selectedImgId": "11", "selectedLineIdx": 0, "lines": [{ "txt": "voulez vous coucher avec moi?", "size": 39, "font": "impact", "align": "start", "fill": "#241f70", "stroke": "#902323", "startPos": { "x": 10, "y": 50 } }, { "txt": "ce soir? non, merci", "size": 50, "font": "Franklin Gothic Medium", "align": "center", "fill": "#cbff0f", "stroke": "#000000", "startPos": { "x": null, "y": 461 } }], dataUrl: 'img/initial-memes/sample3.png' }]
+
 }

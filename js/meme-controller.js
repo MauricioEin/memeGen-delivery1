@@ -3,6 +3,7 @@ var gElCanvas
 var gCtx
 
 function onInit() {
+
     renderGallery()
     gElCanvas = document.getElementById('my-canvas')
     gCtx = gElCanvas.getContext('2d')
@@ -132,7 +133,6 @@ function updateTxtInput() {
 }
 
 function onSave() {
-    console.log('saving')
     saveMeme(gElCanvas.toDataURL())
     renderSavedMemes()
     hideEditor()
