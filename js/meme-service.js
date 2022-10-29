@@ -128,10 +128,11 @@ function switchLine() {
     gMeme.selectedLineIdx %= gMeme.lines.length
 }
 
-function moveTxt(difX, difY) {
-    gMeme.lines[gMeme.selectedLineIdx].startPos.x += difX
+function moveTxt(difX, difY, clickedLineIdx) {
+    if (clickedLineIdx === undefined) clickedLineIdx=gMeme.selectedLineIdx
+    gMeme.lines[clickedLineIdx].startPos.x += difX
 
-    gMeme.lines[gMeme.selectedLineIdx].startPos.y += difY
+    gMeme.lines[clickedLineIdx].startPos.y += difY
 
 }
 

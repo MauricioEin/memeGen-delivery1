@@ -2,7 +2,7 @@
 var gElCanvas
 var gCtx
 var gDragStartPos
-
+var gClickedLineIdx
 const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -201,9 +201,9 @@ function setStyleInputs() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-    const clickedIdx = getClickedLineIdx(pos)
-    if (clickedIdx < 0) return
-    console.log('clicked', clickedIdx)
+    gClickedLineIdx = getClickedLineIdx(pos)
+    if (gClickedLineIdx < 0) return
+    console.log('clicked', gClickedLineIdx)
     setIsDrag(true)
     // //Save the pos we start from 
     gDragStartPos = pos
@@ -224,7 +224,7 @@ function onMove(ev) {
     }
     const dx = pos.x - gDragStartPos.x
     const dy = pos.y - gDragStartPos.y
-    moveTxt(dx, dy)
+    moveTxt(dx, dy, gClickedLineIdx)
     gDragStartPos.x += dx
     gDragStartPos.y += dy
     renderMeme()
