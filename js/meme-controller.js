@@ -1,6 +1,7 @@
 'use strict'
 var gElCanvas
 var gCtx
+var gDragStartPos
 
 function onInit() {
 
@@ -10,14 +11,26 @@ function onInit() {
     addListeners()
     resizeCanvas()
     adjustFontMenu()
-    window.addEventListener('resize', () => { resizeCanvas(), renderMeme() })
     renderSavedMemes()
 }
 
 function addListeners() {
-    // document.querySelector('#txt-editor').addEventListener()
+    addMouseListeners()
+    addTouchListeners()
+    window.addEventListener('resize', () => { resizeCanvas(), renderMeme() })
 }
 
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
+}
 
 
 function resizeCanvas() {
@@ -53,6 +66,7 @@ function renderMeme() {
 }
 
 function drawText({ txt, size, font, stroke, fill, startPos, align }, lineIdx) {
+    console.log(gMeme.lines[gMeme.selectedLineIdx])
 
     if (startPos.y === null) {
         //is this awful? changing it from  the controller instead
@@ -60,19 +74,24 @@ function drawText({ txt, size, font, stroke, fill, startPos, align }, lineIdx) {
         startPos.y = (lineIdx === 0) ? size :
             (lineIdx === 1) ? gElCanvas.height - size : gElCanvas.height / 2
     }
-    const centerX = gElCanvas.width / 2
+    if (startPos.x === null) startPos.x = gElCanvas.width / 2
+
+
     gCtx.lineWidth = size / 20
     gCtx.strokeStyle = stroke
     gCtx.fillStyle = fill
     gCtx.font = `${size}px ${font}`
     gCtx.textAlign = align
-    gCtx.fillText(txt || 'enter text here', startPos.x || centerX, startPos.y)
-    gCtx.strokeText(txt || 'enter text here', startPos.x || centerX, startPos.y)
+    gCtx.fillText(txt || 'enter text here', startPos.x, startPos.y)
+    gCtx.strokeText(txt || 'enter text here', startPos.x, startPos.y)
+    setTextMeasure(gCtx.measureText(txt || 'enter text here'))
+    // console.log(gMeme.lines[gMeme.selectedLineIdx].measure)
 }
 
 function onTextEdit(txt) {
     setLineTxt(txt)
     renderMeme()
+
 }
 
 function onSetColor(clr, clrTarget) {
@@ -98,8 +117,8 @@ function onAddLine() {
     updateTxtInput()
 }
 
-function onMoveTxt(dif) {
-    moveTxt(dif)
+function onMoveTxt(difX, difY) {
+    moveTxt(difX, difY)
     renderMeme()
 }
 
@@ -168,11 +187,47 @@ function resetShareBtn() {
 }
 
 function setStyleInputs() {
-    var {selectedLineIdx, lines} = getMeme()
+    var { selectedLineIdx, lines } = getMeme()
     selectedLineIdx = Math.max(selectedLineIdx, 0)
-    const { stroke, fill, font} = lines[selectedLineIdx]
+    const { stroke, fill, font } = lines[selectedLineIdx]
     document.getElementById('stroke').value = stroke
     document.getElementById('fill').value = fill
     document.getElementById('font-selector').value = font
     adjustFontSelector()
+}
+
+function onDown({ offsetX, offsetY }) {
+    const clickedIdx = getClickedLineIdx(offsetX, offsetY)
+    if (clickedIdx < 0) return
+    console.log('clicked', clickedIdx)
+    setIsDrag(true)
+    // //Save the pos we start from 
+    gDragStartPos = { x: offsetX, y: offsetY }
+    document.querySelector('canvas').style.cursor = 'grabbing'
+
+}
+
+function onMove({ offsetX, offsetY }) {
+    if (!getMeme().isDrag) {
+        (getClickedLineIdx(offsetX, offsetY) >= 0) ?
+         document.querySelector('canvas').style.cursor = 'grab' :
+         document.querySelector('canvas').style.cursor = 'default'
+
+
+        return
+    }
+    // const pos = getEvPos(ev)
+    // //Calc the delta , the diff we moved
+    const dx = offsetX - gDragStartPos.x
+    const dy = offsetY - gDragStartPos.y
+    moveTxt(dx, dy)
+    gDragStartPos.x += dx
+    gDragStartPos.y += dy
+    renderMeme()
+
+}
+
+function onUp() {
+    setIsDrag(false)
+    document.querySelector('canvas').style.cursor = 'grab'
 }

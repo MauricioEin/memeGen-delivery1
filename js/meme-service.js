@@ -18,11 +18,11 @@ const gImgs = [{ id: 1, url: 'img/1.jpg', keywords: ['politic', 'serious', 'hair
 { id: 6, url: 'img/6.jpg', keywords: ['hair', 'explain', 'man'] },
 { id: 7, url: 'img/7.jpg', keywords: ['baby', 'listen', 'shock'] },
 { id: 8, url: 'img/8.jpg', keywords: ['listen', 'hair', 'man'] },
-{ id: 9, url: 'img/9.jpg', keywords: ['you', 'laugh'] },
+{ id: 9, url: 'img/9.jpg', keywords: ['baby', 'laugh'] },
 { id: 10, url: 'img/10.jpg', keywords: ['politic', 'laugh', 'man'] },
 { id: 11, url: 'img/11.jpg', keywords: ['kiss', 'gay', 'friends', 'man'] },
 { id: 12, url: 'img/12.jpg', keywords: ['you', 'man', 'man'] },
-{ id: 13, url: 'img/13.jpg', keywords: ['cheers', 'hair', 'man'] },
+{ id: 13, url: 'img/13.jpg', keywords: ['cheers', 'hair', 'man', 'you'] },
 { id: 14, url: 'img/14.jpg', keywords: ['serious', 'listen', 'shock', 'man'] },
 { id: 15, url: 'img/15.jpg', keywords: ['serious', 'hair', 'explain', 'man'] },
 { id: 16, url: 'img/16.jpg', keywords: ['laugh', 'listen', 'shock', 'man'] },
@@ -60,6 +60,10 @@ function getKeywords() {
 function getPopularKeywords() {
     return Object.entries(gPopKeywords)
 
+}
+
+function getClickedLineIdx(x, y) {
+    return gMeme.lines.findIndex(line => isBelongingX(line, x) && isBelongingY(line, y))
 }
 
 // SETTERS:
@@ -107,6 +111,15 @@ function updatePopularKeywords(word) {
     console.log(gPopKeywords)
 }
 
+function setTextMeasure(measure) {
+    console.log('setting')
+    gMeme.lines[gMeme.selectedLineIdx].measure = measure
+}
+
+function setIsDrag(isDrag) {
+    gMeme.isDrag = isDrag
+}
+
 
 // MANAGING MEME ELEMENTS:
 
@@ -115,9 +128,10 @@ function switchLine() {
     gMeme.selectedLineIdx %= gMeme.lines.length
 }
 
-function moveTxt(dif) {
+function moveTxt(difX, difY) {
+    gMeme.lines[gMeme.selectedLineIdx].startPos.x += difX
 
-    gMeme.lines[gMeme.selectedLineIdx].startPos.y += dif
+    gMeme.lines[gMeme.selectedLineIdx].startPos.y += difY
 
 }
 
@@ -165,6 +179,16 @@ function align(direction, canvasWidth) {
     gMeme.lines[gMeme.selectedLineIdx].align = direction
 }
 
+
+
+function isBelongingY({ startPos, measure }, y) {
+    return y >= (startPos.y - measure.actualBoundingBoxAscent) && y <= (startPos.y + measure.actualBoundingBoxDescent)
+}
+function isBelongingX({ startPos, measure }, x) {
+    return (x >= startPos.x - measure.actualBoundingBoxLeft) && (x <= startPos.x + measure.actualBoundingBoxRight)
+    // return true
+}
+
 // uploading, saving, downloading, deleting
 
 function uploadImg(imgDataUrl, onSuccess) {
@@ -199,6 +223,8 @@ function deleteMeme(idx) {
 function _saveMemesToStorage() {
     saveToStorage(MEMES_STORAGE_KEY, gSavedMemes)
 }
+
+
 
 
 

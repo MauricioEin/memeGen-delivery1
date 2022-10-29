@@ -54,8 +54,8 @@
             <div class="basic-features">
                 <input type="text" class="pill" placeholder="enter text here" id="txt-editor"
                     oninput="onTextEdit(this.value)">
-                <button class="up" onclick="onMoveTxt(-10)">🡅</button>
-                <button class="down" onclick="onMoveTxt(10)">🡇</button>
+                <button class="up" onclick="onMoveTxt(0,-10)">🡅</button>
+                <button class="down" onclick="onMoveTxt(0,10)">🡇</button>
                 <button class="switch" onclick="onSwitchLine()">⮁</button>
                 <button class="add" onclick="onAddLine()">+</button>
                 <button class="delete" onclick="onDeleteLine()">🗑</button>
@@ -108,35 +108,31 @@
     <section id="about">
         <h1>Who am I?</h1>
         <div class="about-container flex">
-            <div class="links">
+            <div class="id">
                 <img src="img/about/me.jpg" alt="" class="my-pic">
                 <h2>Mauricio Einhorn</h2>
-                <p>Fullstack Developer</p>
-                
+                <h4>Fullstack Developer</h4>
+
             </div>
             <div class="info">
-            <p class="info">
-                I am a 30 years young Venezuelan-Israeli, making some steps into Tech-world after more than a decade
-                invested in education and social projects. Feel free to check out my work and my links.
-            </p>
-            <ul class="clean-list social-buttons flex">
-                <li>
-                    <a href="https://www.facebook.com/mauricio.einhorn.3">
-                        <i class="fa fa-facebook">FACE</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://www.linkedin.com/in/mauricio-einhorn-bb14b6236">
-                        <i class="fa fa-linkedin">LINKD</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/MauricioEin">
-                        <i class="fa fa-github">GIT</i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                <p>
+                    I am a 30 years young Venezuelan-Israeli, making some steps into Tech-world after more than a decade
+                    invested in education and social projects. Feel free to check out my work and my links.
+                </p>
+                <ul class="clean-list social-buttons flex">
+
+                    <li><a href="https://www.linkedin.com/in/mauricio-einhorn-bb14b6236" class="linkedin flex">
+                            <img src="img/about/linkedin-btn.webp">
+                        </a></li>
+                    <li><a href="https://www.facebook.com/mauricio.einhorn.3" class="facebook flex">
+                        <img src="img/about/fb-btn.png">
+                    </a></li>
+                <li><a href="https://github.com/MauricioEin" class="linkedin flex">
+                        <img src="img/about/git-btn.png">
+                    </a></li>
+
+                </ul>
+            </div>
         </div>
     </section>
 
