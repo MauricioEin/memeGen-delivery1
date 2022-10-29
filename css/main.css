@@ -72,7 +72,7 @@ h6 {
 }
 
 h1 {
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
     font-size: 3rem;
 }
 
@@ -668,6 +668,7 @@ canvas {
 
     #about .id img {
         width: 70%;
+        max-width: 370px;
     }
 
     .info {

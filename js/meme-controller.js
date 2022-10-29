@@ -3,6 +3,9 @@ var gElCanvas
 var gCtx
 var gDragStartPos
 
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+
+
 function onInit() {
 
     renderGallery()
@@ -196,30 +199,31 @@ function setStyleInputs() {
     adjustFontSelector()
 }
 
-function onDown({ offsetX, offsetY }) {
-    const clickedIdx = getClickedLineIdx(offsetX, offsetY)
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    const clickedIdx = getClickedLineIdx(pos)
     if (clickedIdx < 0) return
     console.log('clicked', clickedIdx)
     setIsDrag(true)
     // //Save the pos we start from 
-    gDragStartPos = { x: offsetX, y: offsetY }
+    gDragStartPos = pos
     document.querySelector('canvas').style.cursor = 'grabbing'
 
 }
 
-function onMove({ offsetX, offsetY }) {
+function onMove(ev) {
+    const pos = getEvPos(ev)
+
     if (!getMeme().isDrag) {
-        (getClickedLineIdx(offsetX, offsetY) >= 0) ?
+        (getClickedLineIdx(pos) >= 0) ?
          document.querySelector('canvas').style.cursor = 'grab' :
          document.querySelector('canvas').style.cursor = 'default'
 
 
         return
     }
-    // const pos = getEvPos(ev)
-    // //Calc the delta , the diff we moved
-    const dx = offsetX - gDragStartPos.x
-    const dy = offsetY - gDragStartPos.y
+    const dx = pos.x - gDragStartPos.x
+    const dy = pos.y - gDragStartPos.y
     moveTxt(dx, dy)
     gDragStartPos.x += dx
     gDragStartPos.y += dy
@@ -231,3 +235,25 @@ function onUp() {
     setIsDrag(false)
     document.querySelector('canvas').style.cursor = 'grab'
 }
+
+function getEvPos(ev) {
+
+    let pos = {
+      x: ev.offsetX,
+      y: ev.offsetY
+    }
+    // Check if its a touch ev
+    if (TOUCH_EVS.includes(ev.type)) {
+      //soo we will not trigger the mouse ev
+      ev.preventDefault()
+      //Gets the first touch point
+      ev = ev.changedTouches[0]
+      //Calc the right pos according to the touch screen
+      pos = {
+        x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+        y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+      }
+    }
+    return pos
+  }
+  

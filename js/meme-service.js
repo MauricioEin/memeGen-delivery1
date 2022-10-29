@@ -62,7 +62,7 @@ function getPopularKeywords() {
 
 }
 
-function getClickedLineIdx(x, y) {
+function getClickedLineIdx({x, y}) {
     return gMeme.lines.findIndex(line => isBelongingX(line, x) && isBelongingY(line, y))
 }
 
