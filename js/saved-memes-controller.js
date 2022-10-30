@@ -5,7 +5,7 @@
 function renderSavedMemes() {
     const savedMemes = getSavedMemes()
     const strHTMLs = savedMemes.map((meme, idx) =>
-        `<div class="saved-img-container" onmouseenter="toggleDelete(${idx})" onmouseleave="toggleDelete(${idx})">
+        `<div class="saved-img-container rounded" onmouseenter="toggleDelete(${idx})" onmouseleave="toggleDelete(${idx})">
     <img class="rounded" onclick="onSelectMeme(${idx})" data-saved-idx="${idx}" src="${meme.dataUrl}">
     <div class="delete-meme" id="delete-meme${idx}" onclick="onDeleteMeme(${idx})">🗑</div></div>`)
     document.querySelector('.saved-memes-container').innerHTML = strHTMLs.join('')
@@ -24,5 +24,4 @@ function onDeleteMeme(idx) {
 
 function toggleDelete(idx) {
     document.getElementById('delete-meme' + idx).classList.toggle('show')
-
 }

@@ -9,42 +9,20 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInit()">
+<body class="gallery-view" onload="onInit()">
 
-    <header class="full flex">
+    <header class=" flex">
         <div class="logo">memeGen</div>
         <nav class="main-nav">
             <ul class="flex clean-list">
-                <li> <a class="pill" href="#" onclick="hideEditor()">Gallery</a> </li>
-                <li> <a class="pill" href="#memes" onclick="hideEditor()">Saved Memes</a> </li>
-                <li> <a class="pill" href="#about" onclick="hideEditor()">About</a> </li>
+                <li> <a class="gallery-link pill" href="#" onclick="onSectionLink('gallery')"></a> </li>
+                <li> <a class="memes-link pill" href="#memes" onclick="onSectionLink('memes')"></a> </li>
+                <li> <a class="about-link pill" href="#about" onclick="onSectionLink('about')"></a> </li>
             </ul>
         </nav>
     </header>
 
-    <section class="gallery" id="gallery">
-
-        <div class="search-bar flex">
-            <div class="search-by-txt pill">
-                <input list="keywords" id="searchTxtInput" placeholder="Search" oninput="onFilter(this.value)"
-                    onchange="onKeyword(this.value)">
-                <span>🔎︎</span>
-                <datalist id="keywords">
-                </datalist>
-            </div>
-            <div class="keyword-search flex">
-                <div class="search-words pill">BLA BLA BLA BLA</div>
-                <button class="more-btn pill" onclick="onMore()"></button>
-            </div>
-        </div>
-
-        <div class="img-container">
-
-        </div>
-
-    </section>
-
-    <section class="editor flex">
+    <section class="editor flex scroller">
 
         <div class="canvas-container rounded">
             <canvas id="my-canvas">
@@ -54,21 +32,21 @@
             <div class="basic-features">
                 <input type="text" class="pill" placeholder="enter text here" id="txt-editor"
                     oninput="onTextEdit(this.value)">
-                <button class="up" onclick="onMoveTxt(0,-10)">🡅</button>
-                <button class="down" onclick="onMoveTxt(0,10)">🡇</button>
-                <button class="switch" onclick="onSwitchLine()">⮁</button>
-                <button class="add" onclick="onAddLine()">+</button>
-                <button class="delete" onclick="onDeleteLine()">🗑</button>
+                <button title="move up" class="up" onclick="onMoveTxt(0,-10)">🡅</button>
+                <button title="move down" class="down" onclick="onMoveTxt(0,10)">🡇</button>
+                <button title="switch selected line" class="switch" onclick="onSwitchLine()">⮁</button>
+                <button title="add a line" class="add" onclick="onAddLine()">+</button>
+                <button title="delete line" class="delete" onclick="onDeleteLine()">🗑</button>
             </div>
 
 
             <div class="style-features rounded">
                 <div>
-                    <button class="bigger" onclick="onSetFontSize(1)">A⁺</button>
-                    <button class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
-                    <button class="align-start" onclick="onAlign('start')">|🡄</button>
-                    <button class="align-center" onclick="onAlign('center')">⬌</button>
-                    <button class="align-end" onclick="onAlign('end')">🡆|</button>
+                    <button title="increase font" class="bigger" onclick="onSetFontSize(1)">A⁺</button>
+                    <button title="reduce font" class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
+                    <button title="align to start" class="align-start" onclick="onAlign('start')">|🡄</button>
+                    <button title="align to center" class="align-center" onclick="onAlign('center')">⬌</button>
+                    <button title="align to end" class="align-end" onclick="onAlign('end')">🡆|</button>
                 </div>
                 <div class="non-btn-features"><select name="" id="font-selector" oninput="onSetFont(this.value)">
                         <option>impact</option>
@@ -98,14 +76,37 @@
 
     </section>
 
-    <section id="memes">
+    <section class="gallery" id="gallery">
+
+        <div class="search-bar flex">
+            <div class="search-by-txt pill">
+                <input list="keywords" id="searchTxtInput" placeholder="Search" oninput="onFilter(this.value)"
+                    onchange="onKeyword(this.value)">
+                <span>🔎︎</span>
+                <datalist id="keywords">
+                </datalist>
+            </div>
+            <div class="keyword-search flex">
+                <div class="search-words pill"><BLA BLA BLA BLA></div>
+                <button class="more-btn pill" title="view all searched words" onclick="onMore()"></button>
+            </div>
+        </div>
+
+        <div class="scroller"></div>
+        <div class="img-container scroller">
+
+        </div>
+
+    </section>
+
+    <section id="memes" class="scroller">
         <h1>Saved Memes</h1>
         <div class="saved-memes-container">
 
         </div>
     </section>
 
-    <section id="about">
+    <section id="about" class="scroller">
         <h1>Who am I?</h1>
         <div class="about-container flex">
             <div class="id">
@@ -117,7 +118,8 @@
             <div class="info">
                 <p>
                     I am a 30 years young Venezuelan-Israeli, making some steps into Tech-world after more than a decade
-                    invested in education and social projects. As part of my training in Coding Academy I've written this project, demonstrating some of the skills I've learnt so far. Feel free to check it out!
+                    invested in education and social projects. As part of my training in Coding Academy I've written
+                    this project, demonstrating some of the skills I've learnt so far. Feel free to check it out!
                 </p>
                 <ul class="clean-list social-buttons flex">
 
@@ -125,11 +127,11 @@
                             <img src="img/about/linkedin-btn.webp">
                         </a></li>
                     <li><a href="https://www.facebook.com/mauricio.einhorn.3" class="facebook flex">
-                        <img src="img/about/fb-btn.png">
-                    </a></li>
-                <li><a href="https://github.com/MauricioEin" class="linkedin flex">
-                        <img src="img/about/git-btn.png">
-                    </a></li>
+                            <img src="img/about/fb-btn.png">
+                        </a></li>
+                    <li><a href="https://github.com/MauricioEin" class="linkedin flex">
+                            <img src="img/about/git-btn.png">
+                        </a></li>
 
                 </ul>
             </div>

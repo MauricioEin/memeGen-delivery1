@@ -62,8 +62,17 @@ function getPopularKeywords() {
 
 }
 
-function getClickedLineIdx({x, y}) {
-    return gMeme.lines.findIndex(line => isBelongingX(line, x) && isBelongingY(line, y))
+function getClickedLineIdx({ x, y }) {
+    const idx = gMeme.lines.findIndex(line => isBelongingX(line, x) && isBelongingY(line, y))
+    if (idx >= 0) gMeme.selectedLineIdx = idx
+    return idx
+}
+
+function isBelongingY({ startPos, measure }, y) {
+    return y >= (startPos.y - measure.actualBoundingBoxAscent) && y <= (startPos.y + measure.actualBoundingBoxDescent)
+}
+function isBelongingX({ startPos, measure }, x) {
+    return x >= (startPos.x - measure.actualBoundingBoxLeft) && x <= (startPos.x + measure.actualBoundingBoxRight)
 }
 
 // SETTERS:
@@ -112,7 +121,7 @@ function updatePopularKeywords(word) {
 }
 
 function setTextMeasure(measure) {
-    console.log('setting')
+    console.log('setting', gMeme.selectedLineIdx)
     gMeme.lines[gMeme.selectedLineIdx].measure = measure
 }
 
@@ -126,14 +135,6 @@ function setIsDrag(isDrag) {
 function switchLine() {
     gMeme.selectedLineIdx++
     gMeme.selectedLineIdx %= gMeme.lines.length
-}
-
-function moveTxt(difX, difY, clickedLineIdx) {
-    if (clickedLineIdx === undefined) clickedLineIdx=gMeme.selectedLineIdx
-    gMeme.lines[clickedLineIdx].startPos.x += difX
-
-    gMeme.lines[clickedLineIdx].startPos.y += difY
-
 }
 
 function addLine() {
@@ -180,15 +181,15 @@ function align(direction, canvasWidth) {
     gMeme.lines[gMeme.selectedLineIdx].align = direction
 }
 
+function moveTxt(difX, difY, canvasHeight, lineIdx) {
+    if (lineIdx === undefined) lineIdx = gMeme.selectedLineIdx
+    if (gMeme.lines[lineIdx].startPos.y + difY < gMeme.lines[lineIdx].size) return
+    if (gMeme.lines[lineIdx].startPos.y + difY > canvasHeight ) return
+    gMeme.lines[lineIdx].startPos.x += difX
+    gMeme.lines[lineIdx].startPos.y += difY
+}
 
 
-function isBelongingY({ startPos, measure }, y) {
-    return y >= (startPos.y - measure.actualBoundingBoxAscent) && y <= (startPos.y + measure.actualBoundingBoxDescent)
-}
-function isBelongingX({ startPos, measure }, x) {
-    return (x >= startPos.x - measure.actualBoundingBoxLeft) && (x <= startPos.x + measure.actualBoundingBoxRight)
-    // return true
-}
 
 // uploading, saving, downloading, deleting
 
@@ -221,6 +222,7 @@ function deleteMeme(idx) {
     gSavedMemes.splice(idx, 1)
     _saveMemesToStorage()
 }
+
 function _saveMemesToStorage() {
     saveToStorage(MEMES_STORAGE_KEY, gSavedMemes)
 }

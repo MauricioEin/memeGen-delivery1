@@ -27,6 +27,8 @@ function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
     gElCanvas.addEventListener('mouseup', onUp)
+    gElCanvas.addEventListener('mouseleave', onUp)
+
 }
 
 function addTouchListeners() {
@@ -35,6 +37,8 @@ function addTouchListeners() {
     gElCanvas.addEventListener('touchend', onUp)
 }
 
+
+// ADJUSTMENT OF ELEMENTS:
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container')
@@ -53,6 +57,29 @@ function adjustFontSelector() {
     elSelect.style.fontFamily = elSelect.value
 }
 
+function updateTxtInput() {
+    const meme = getMeme()
+    const txt = (meme.selectedLineIdx >= 0) ? meme.lines[meme.selectedLineIdx].txt : ''
+    document.querySelector('#txt-editor').value = txt
+}
+
+function resetShareBtn() {
+    document.querySelector('.fb-container').innerHTML = ''
+    document.querySelector('.share').style.display = 'inline'
+
+}
+
+function setStyleInputs() {
+    var { selectedLineIdx, lines } = getMeme()
+    selectedLineIdx = Math.max(selectedLineIdx, 0)
+    const { stroke, fill, font } = lines[selectedLineIdx]
+    document.getElementById('stroke').value = stroke
+    document.getElementById('fill').value = fill
+    document.getElementById('font-selector').value = font
+    adjustFontSelector()
+}
+
+// MEME RENDERING:
 
 function renderMeme() {
     const { selectedImgId: id, selectedLineIdx, lines } = getMeme()
@@ -88,8 +115,9 @@ function drawText({ txt, size, font, stroke, fill, startPos, align }, lineIdx) {
     gCtx.fillText(txt || 'enter text here', startPos.x, startPos.y)
     gCtx.strokeText(txt || 'enter text here', startPos.x, startPos.y)
     setTextMeasure(gCtx.measureText(txt || 'enter text here'))
-    // console.log(gMeme.lines[gMeme.selectedLineIdx].measure)
 }
+
+// EVENT HANDLERS:
 
 function onTextEdit(txt) {
     setLineTxt(txt)
@@ -121,7 +149,7 @@ function onAddLine() {
 }
 
 function onMoveTxt(difX, difY) {
-    moveTxt(difX, difY)
+    moveTxt(difX, difY, gElCanvas.height)
     renderMeme()
 }
 
@@ -148,18 +176,11 @@ function onDownload(elLink) {
 
 }
 
-function updateTxtInput() {
-    const meme = getMeme()
-    const txt = (meme.selectedLineIdx >= 0) ? meme.lines[meme.selectedLineIdx].txt : ''
-    document.querySelector('#txt-editor').value = txt
-}
-
 function onSave() {
     saveMeme(gElCanvas.toDataURL())
     renderSavedMemes()
-    hideEditor()
-    document.getElementById("memes").scrollIntoView();
-
+    onSectionLink('memes')
+    // document.getElementById("memes").scrollIntoView();
 
 }
 
@@ -180,32 +201,19 @@ function onShare(elLink) {
         elLink.style.display = 'none'
         elLink.innerHTML = 'share'
     }
-    uploadImg(imgDataUrl, onSuccess)
+    setTimeout(uploadImg, 500, imgDataUrl, onSuccess)// uploadImg(imgDataUrl, onSuccess)
 }
 
-function resetShareBtn() {
-    document.querySelector('.fb-container').innerHTML = ''
-    document.querySelector('.share').style.display = 'inline'
-
-}
-
-function setStyleInputs() {
-    var { selectedLineIdx, lines } = getMeme()
-    selectedLineIdx = Math.max(selectedLineIdx, 0)
-    const { stroke, fill, font } = lines[selectedLineIdx]
-    document.getElementById('stroke').value = stroke
-    document.getElementById('fill').value = fill
-    document.getElementById('font-selector').value = font
-    adjustFontSelector()
-}
+// DRAG AND DROP:
 
 function onDown(ev) {
     const pos = getEvPos(ev)
     gClickedLineIdx = getClickedLineIdx(pos)
     if (gClickedLineIdx < 0) return
+    renderMeme()
+    updateTxtInput()
     console.log('clicked', gClickedLineIdx)
     setIsDrag(true)
-    // //Save the pos we start from 
     gDragStartPos = pos
     document.querySelector('canvas').style.cursor = 'grabbing'
 
@@ -216,15 +224,13 @@ function onMove(ev) {
 
     if (!getMeme().isDrag) {
         (getClickedLineIdx(pos) >= 0) ?
-         document.querySelector('canvas').style.cursor = 'grab' :
-         document.querySelector('canvas').style.cursor = 'default'
-
-
+            document.querySelector('canvas').style.cursor = 'grab' :
+            document.querySelector('canvas').style.cursor = 'default'
         return
     }
     const dx = pos.x - gDragStartPos.x
     const dy = pos.y - gDragStartPos.y
-    moveTxt(dx, dy, gClickedLineIdx)
+    moveTxt(dx, dy, gElCanvas.height, gClickedLineIdx)
     gDragStartPos.x += dx
     gDragStartPos.y += dy
     renderMeme()
@@ -239,21 +245,20 @@ function onUp() {
 function getEvPos(ev) {
 
     let pos = {
-      x: ev.offsetX,
-      y: ev.offsetY
+        x: ev.offsetX,
+        y: ev.offsetY
     }
     // Check if its a touch ev
     if (TOUCH_EVS.includes(ev.type)) {
-      //soo we will not trigger the mouse ev
-      ev.preventDefault()
-      //Gets the first touch point
-      ev = ev.changedTouches[0]
-      //Calc the right pos according to the touch screen
-      pos = {
-        x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-        y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-      }
+        //soo we will not trigger the mouse ev
+        ev.preventDefault()
+        //Gets the first touch point
+        ev = ev.changedTouches[0]
+        //Calc the right pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+        }
     }
     return pos
-  }
-  
+}
