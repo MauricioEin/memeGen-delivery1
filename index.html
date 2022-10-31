@@ -80,14 +80,16 @@
 
         <div class="search-bar flex">
             <div class="search-by-txt pill">
-                <input list="keywords" id="searchTxtInput" placeholder="Search" oninput="onFilter(this.value)"
-                    onchange="onKeyword(this.value)">
+                <input type="search" list="keywords" id="searchTxtInput" placeholder="Search"
+                    oninput="onFilter(this.value)" onchange="onKeyword(this.value)">
                 <span>🔎︎</span>
                 <datalist id="keywords">
                 </datalist>
             </div>
             <div class="keyword-search flex">
-                <div class="search-words pill"><BLA BLA BLA BLA></div>
+                <div class="search-words pill">
+                    <BLA BLA BLA BLA>
+                </div>
                 <button class="more-btn pill" title="view all searched words" onclick="onMore()"></button>
             </div>
         </div>
@@ -116,6 +118,8 @@
 
             </div>
             <div class="info">
+                <h2>Mauricio Einhorn</h2>
+                <h4>Fullstack Developer</h4>
                 <p>
                     I am a 30 years young Venezuelan-Israeli, making some steps into Tech-world after more than a decade
                     invested in education and social projects. As part of my training in Coding Academy I've written

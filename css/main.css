@@ -7,9 +7,6 @@
     --clr3: #87898d;
     --clr2: #383b42;
     --clr1: #22252c;
-
-    /* BP */
-    --headerHeight: 4.5rem;
 }
 
 * {
@@ -249,7 +246,6 @@ header {
     display: flex;
     align-items: center;
     font-size: 1.375rem;
-    height: var(--headerHeight);
     cursor: default;
 }
 
@@ -315,12 +311,12 @@ header ul a:hover {
     display: flex;
     justify-content: space-between;
     background-color: var(--clr1);
-    padding: 20px 25px 20px 50px;
+    padding: 5px 25px 5px 50px;
     flex-basis: 50%;
 }
 
 .search-by-txt input {
-    width: 80%;
+    width: 90%;
     font-size: 1.25rem;
     background-color: transparent;
     border-width: 0;
@@ -355,7 +351,7 @@ header ul a:hover {
 
 .more-btn {
     background-image: var(--grad);
-    font-size: 1.25rem;
+    font-size: 1rem;
     padding: 0.1em 0.7em;
     color: var(--clr4);
     border-width: 0;
@@ -367,7 +363,7 @@ header ul a:hover {
 }
 
 .more-btn::before {
-    content: 'More'
+    content: 'more'
 }
 
 .img-container,
@@ -381,7 +377,7 @@ header ul a:hover {
 
 .img-container {
     overflow: auto;
-    height: 49vh;
+    height: 46vh;
     padding-inline-end: 20px;
 }
 
@@ -390,12 +386,11 @@ header ul a:hover {
 .editor {
     position: fixed;
     inset: 0;
-    transform: translateX(130%);
+    transform: translateX(100vw);
     background-color: var(--clr1);
     width: 100%;
-    /* padding-inline-start: 95px;
-    padding-inline-end: 95px; */
     padding-top: 30px;
+    padding-bottom: 30px;
     gap: 10%;
     z-index: 5;
     transition: transform .6s;
@@ -424,7 +419,6 @@ body.editor-open .editor {
     text-align: center;
     background-color: var(--clr2);
     padding: 24px;
-    width: 440px;
 }
 
 .edit-menu>* {
@@ -478,7 +472,7 @@ body.editor-open .editor {
     margin-inline-start: auto;
 }
 
-#about .id img {
+#about .my-pic {
     border-radius: 999px;
     width: 50%;
     border: 10px solid var(--clr4);
@@ -526,6 +520,12 @@ body.editor-open .editor {
 
 .social-buttons img {
     width: 30px;
+}
+
+.id .social-buttons,
+.info h2,
+.info h4 {
+    display: none;
 }
 
 footer {
@@ -590,7 +590,7 @@ body.keywords-open .more-btn {
 }
 
 body.keywords-open .more-btn::before {
-    content: 'Less';
+    content: 'less';
 }
 
 body.keywords-open .more-btn:hover {
@@ -739,7 +739,7 @@ canvas {
 
 
 /* FOR MOBILE ONLY */
-@media (max-width:450px) {
+@media (max-width:449px) {
 
     .main-nav {
         flex-basis: 50%;
@@ -767,6 +767,20 @@ canvas {
         font-weight: bold;
         text-shadow: none !important;
     }
+
+    #about .my-pic {
+        width: 75%;
+        border: 6px solid var(--clr4);
+    }
+    .editor{
+        padding-bottom: 0;
+    }
+
+    .edit-menu {
+        width: 100%;
+        border-radius: 0;
+    }
+
 }
 
 @media (min-width:450px) {
@@ -780,6 +794,11 @@ canvas {
 
     .about-link::before {
         content: 'about'
+    }
+
+    .edit-menu {
+        width: fit-content;
+        margin: auto;
     }
 
 }
@@ -801,10 +820,7 @@ canvas {
         text-shadow: 3px 2px 5px var(--clr1);
     }
 
-    .edit-menu {
-        width: fit-content;
-        margin: auto;
-    }
+
 
 
 
@@ -826,7 +842,7 @@ canvas {
 
 /* SMALL SIZE */
 @media (min-width:540px) {
-    .search-words {
+    /* .search-words {
         font-size: 0.6rem;
     }
 
@@ -835,7 +851,13 @@ canvas {
     }
 
     .img-container {
-        height: 46vh;
+        height: 42vh;
+    } */
+
+
+    .img-container,
+    .saved-memes-container {
+        grid-template-columns: repeat(3, 1fr);
     }
 
     body.memes-view .memes-link,
@@ -848,10 +870,12 @@ canvas {
         font-weight: bold;
     }
 
-    .style-features {
+    .style-features, .basic-features {
         width: 300px;
     }
-
+.edit-menu {
+    width: fit-content;
+}
 }
 
 
@@ -873,20 +897,25 @@ canvas {
     }
 
     .keyword-search {
-        gap: 10%;
+        /* gap: 10%; */
     }
 
     .more-btn {
-        padding: 0.5em 1em;
+        /* padding: 0.5em 1em;
         font-size: 1.5rem;
-        flex-grow: 1.5;
+        flex-grow: 1.5; */
     }
 
     .img-container,
     .saved-memes-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: 30px;
         margin: auto;
+    }
+
+    #about {
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
     .about-container {
@@ -897,9 +926,13 @@ canvas {
         flex-basis: 35%;
     }
 
-    #about .id img {
+    #about .my-pic {
         width: 70%;
         max-width: 370px;
+    }
+
+    #about h2 {
+        font-size: 2rem;
     }
 
     .info {
@@ -922,47 +955,6 @@ canvas {
 
     .search-words {
         flex-grow: 0;
-    }
-
-
-
-    #about p {
-        font-size: 1.5rem;
-    }
-
-}
-
-@media (min-width:950px) {
-    .editor {
-        flex-direction: row;
-    }
-
-    .editor>* {
-        /* width: 50%; */
-        height: fit-content;
-    }
-
-    .canvas-container {
-        width: 50%;
-    }
-}
-
-
-
-
-/* LARGE */
-
-@media (min-width:1015px) {
-    header {
-        /* padding-inline-start: 3rem;
-        padding-inline-end: 3rem; */
-        padding-inline-start: 5.25rem;
-        padding-inline-end: 5.25rem;
-        font-size: 1.2rem;
-    }
-
-    .main-nav {
-        flex-basis: 46%;
     }
 
     .search-bar {
@@ -988,13 +980,52 @@ canvas {
     }
 
     .more-btn {
-        padding: 0.5em 1em;
-        font-size: 1.25rem;
+        /* padding: 0.5em 1em; */
+        /* font-size: 1.25rem; */
         flex-grow: 0;
     }
 
     .img-container {
-        height: 60vh;
+        height: 59vh;
+    }
+}
+
+@media (min-width:950px) {
+    .editor {
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+    }
+
+    .editor>* {
+        /* width: 50%; */
+        height: fit-content;
+        margin:0;
+
+    }
+
+    .canvas-container {
+        width: 50%;
+    }
+}
+
+
+
+
+/* LARGE */
+
+@media (min-width:1015px) {
+    header {
+        /* padding-inline-start: 3rem;
+        padding-inline-end: 3rem; */
+        padding-inline-start: 5.25rem;
+        padding-inline-end: 5.25rem;
+        font-size: 1.2rem;
+    }
+
+    .main-nav {
+        flex-basis: 46%;
     }
 
     .edit-menu {
@@ -1003,7 +1034,7 @@ canvas {
 
     .img-container,
     .saved-memes-container {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 
     .canvas-container {
@@ -1023,4 +1054,13 @@ canvas {
         grid-template-columns: repeat(6, 1fr);
     }
 
+    .info h2,
+    .info h4 {
+        display: block;
+    }
+
+    .id h2,
+    .id h4 {
+        display: none;
+    }
 }
