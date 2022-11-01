@@ -437,7 +437,7 @@ body.editor-open .editor {
     padding-bottom: .2em;
     border-width: 0;
     box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .style-features {
@@ -620,6 +620,9 @@ canvas {
     border-radius: 10px;
     border-width: 0;
     box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .basic-features button:hover {
@@ -705,14 +708,15 @@ canvas {
     position: absolute;
     top: 0;
     right: 0;
-    height: 25%;
-    width: 25%;
+    height: 50px;
+    width: 50px;
     font-size: 2rem;
     border-end-start-radius: 35px;
     border-start-end-radius: 8px;
     box-shadow: -1px 1px 3px #05323792;
     background-image: var(--grad);
     display: none;
+    padding:5px;
 }
 
 .delete-meme.show {
@@ -726,6 +730,11 @@ canvas {
 
 }
 
+.delete-meme>* {
+    /* font-size: 70%; */
+    /* height: 65%; */
+    /* width: 40%; */
+}
 
 
 /* scrollbar */
@@ -741,20 +750,34 @@ canvas {
 /* FOR MOBILE ONLY */
 @media (max-width:449px) {
 
+
+    header {
+        padding-inline-start: 1rem;
+        padding-inline-end: 0.5rem;
+    }
+
     .main-nav {
         flex-basis: 50%;
+        flex-grow: 0;
+    }
+
+    header ul a {
+        padding: 0.5em;
     }
 
     .gallery-link::before {
-        content: 'g'
+        content: 'gallery';
+        font-size: 0.7rem;
     }
 
     .memes-link::before {
-        content: 'm'
+        content: 'memes';
+        font-size: 0.7rem;
     }
 
     .about-link::before {
-        content: 'a'
+        content: 'about';
+        font-size: 0.7rem;
     }
 
     body.memes-view .memes-link,
@@ -772,7 +795,8 @@ canvas {
         width: 75%;
         border: 6px solid var(--clr4);
     }
-    .editor{
+
+    .editor {
         padding-bottom: 0;
     }
 
@@ -870,12 +894,14 @@ canvas {
         font-weight: bold;
     }
 
-    .style-features, .basic-features {
+    .style-features,
+    .basic-features {
         width: 300px;
     }
-.edit-menu {
-    width: fit-content;
-}
+
+    .edit-menu {
+        width: fit-content;
+    }
 }
 
 
@@ -1001,7 +1027,7 @@ canvas {
     .editor>* {
         /* width: 50%; */
         height: fit-content;
-        margin:0;
+        margin: 0;
 
     }
 

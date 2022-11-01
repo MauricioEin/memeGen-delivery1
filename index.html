@@ -32,21 +32,41 @@
             <div class="basic-features">
                 <input type="text" class="pill" placeholder="enter text here" id="txt-editor"
                     oninput="onTextEdit(this.value)">
-                <button title="move up" class="up" onclick="onMoveTxt(0,-10)">🡅</button>
-                <button title="move down" class="down" onclick="onMoveTxt(0,10)">🡇</button>
-                <button title="switch selected line" class="switch" onclick="onSwitchLine()">⮁</button>
-                <button title="add a line" class="add" onclick="onAddLine()">+</button>
-                <button title="delete line" class="delete" onclick="onDeleteLine()">🗑</button>
+                <button title="move up" class="up" onclick="onMoveTxt(0,-10)">
+                    <iconify-icon icon="akar-icons:arrow-up"></iconify-icon>
+                </button>
+                <button title="move down" class="down" onclick="onMoveTxt(0,10)">
+                    <iconify-icon icon="akar-icons:arrow-down"></iconify-icon>
+                </button>
+                <button title="switch selected line" class="switch" onclick="onSwitchLine()">
+                    <iconify-icon icon="octicon:arrow-switch-16" rotate="90deg"></iconify-icon>
+                </button>
+                <button title="add a line" class="add" onclick="onAddLine()">
+                    <iconify-icon icon="akar-icons:plus"></iconify-icon>
+                </button>
+                <button title="delete line" class="delete" onclick="onDeleteLine()">
+                    <iconify-icon icon="bi:trash"></iconify-icon>
+                </button>
             </div>
 
 
             <div class="style-features rounded">
                 <div>
-                    <button title="increase font" class="bigger" onclick="onSetFontSize(1)">A⁺</button>
-                    <button title="reduce font" class="smaller" onclick="onSetFontSize(-1)">A⁻</button>
-                    <button title="align to start" class="align-start" onclick="onAlign('start')">|🡄</button>
-                    <button title="align to center" class="align-center" onclick="onAlign('center')">⬌</button>
-                    <button title="align to end" class="align-end" onclick="onAlign('end')">🡆|</button>
+                    <button title="increase font" class="bigger" onclick="onSetFontSize(5)"><iconify-icon icon="mdi:format-font-size-increase"></iconify-icon>
+
+                    </button>
+                    <button title="reduce font" class="smaller" onclick="onSetFontSize(-5)"><iconify-icon icon="mdi:format-font-size-decrease"></iconify-icon>
+
+                    </button>
+                    <button title="align to start" class="align-start" onclick="onAlign('start')">
+                        <iconify-icon icon="ant-design:align-left-outlined"></iconify-icon>
+                    </button>
+                    <button title="align to center" class="align-center" onclick="onAlign('center')">
+                        <iconify-icon icon="ant-design:align-center-outlined"></iconify-icon>
+                    </button>
+                    <button title="align to end" class="align-end" onclick="onAlign('end')">
+                        <iconify-icon icon="ant-design:align-right-outlined"></iconify-icon>
+                    </button>
                 </div>
                 <div class="non-btn-features"><select name="" id="font-selector" oninput="onSetFont(this.value)">
                         <option>impact</option>
@@ -144,6 +164,8 @@
 
     <footer></footer>
 
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
     <script src="js/storage-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
